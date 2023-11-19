@@ -60,9 +60,15 @@ def on_connect(mqtt_client, userdata, flags, rc):
 
 def on_message(mqtt_client, userdata, msg):
     from device.models import Device, Relay
+    import ast
 
     print(f'Received message on topic: {msg.topic} with payload: {msg.payload}')
-    update_create_device(msg.payload)
+    string = msg.payload.decode('utf-8')
+    print("--------------data------------------")
+    print(string)
+    print("---------------enddata-----------------")
+    payload = ast.literal_eval(string)
+    update_create_device(payload)
 
 
 
