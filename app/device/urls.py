@@ -13,7 +13,9 @@ router.register(r'relay', views.RelayViewSet,basename="relay")
 
 
 urlpatterns = [
-        path('', include(router.urls)),
+    path("", views.home, name="home"),
+
+    path('api', include(router.urls)),
 
     path('publish', views.publish_message, name='publish'),
 ]

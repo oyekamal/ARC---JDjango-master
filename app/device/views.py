@@ -15,6 +15,10 @@ from .serializers import DeviceSerializer, RelayGroupSerializer, RelaySerializer
 
 from rest_framework import viewsets
 
+def home(request):
+
+    return render(request, "base.html")
+
 class DeviceViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list` and `retrieve` actions.
