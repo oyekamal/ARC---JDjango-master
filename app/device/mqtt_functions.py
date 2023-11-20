@@ -69,6 +69,8 @@ def on_message(mqtt_client, userdata, msg):
     print("---------------enddata-----------------")
     payload = ast.literal_eval(string)
     update_create_device(payload)
+    payload['message'] = f"hello  {payload.get('device_name')} im Master."
+    result = mqtt_client.publish(payload.get('device_name'), str(payload))
 
 
 
