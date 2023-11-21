@@ -45,7 +45,9 @@ INSTALLED_APPS = [
 
     'dmqtt',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'django_extensions',
+
 
 ]
 CORS_ORIGIN_ALLOW_ALL = True
