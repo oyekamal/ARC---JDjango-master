@@ -71,22 +71,22 @@ def handle_message(client, userdata, message):
 
     string = message.payload.decode('utf-8')
     payload = ast.literal_eval(string)
-
+    print("--------------------------------")
     print(payload)
+    print("--------------------------------")
     if payload['device_update'] and payload['relay_on_off']:
         print(payload['relay_on_off'])
-        for each_relay in payload['relay_on_off']:
-            for key, value in each_relay.items():
-                print("sending request to pin", key)
-                # GPIO.setup(key, GPIO.OUT)
-                # GPIO.output(key, GPIO.HIGH)
-                print("...............high.................")
-                # time.sleep(0.8)
-                print("--------------break after 0.8s------------------")
-                # GPIO.output(key, GPIO.LOW)
-                print("...............low.................")
+        for key, value in payload['relay_on_off'].items():
+            print("sending request to pin", key)
+            # GPIO.setup(key, GPIO.OUT)
+            # GPIO.output(key, GPIO.HIGH)
+            print("...............high.................")
+            # time.sleep(0.8)
+            print("--------------break after 0.8s------------------")
+            # GPIO.output(key, GPIO.LOW)
+            print("...............low.................")
 
-                print("...............toogle end.................")
+            print("...............toogle end.................")
 
 
         # logic for toggling device
