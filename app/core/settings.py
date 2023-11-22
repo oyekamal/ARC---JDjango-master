@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_extensions',
-
+    "django_celery_results",
+    "django_celery_beat",
 
 ]
 CORS_ORIGIN_ALLOW_ALL = True
@@ -57,6 +58,34 @@ MQTT_PORT = 1883
 MQTT_KEEPALIVE = 60
 MQTT_USER = ''
 MQTT_PASSWORD = ''
+
+# Celery Configuration
+# Django setting for Celery broker
+# Celery Configuration
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+CELERY_BEAT_SCHEDULE = {
+    'task-name': {
+        'task': 'device.tasks.task_name',
+        'schedule': 5.0,  # Run the task every 60 seconds
+    },
+}
+
+# Django setting for caching
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
