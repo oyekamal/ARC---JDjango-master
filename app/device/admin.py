@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Device, Relay, RelayGroup, RelayRelayGroupAssociation
+from .models import Device, Relay, RelayGroup, RelayRelayGroupAssociation, RelaySchedule
 
 
 @admin.register(Device)
@@ -34,3 +34,8 @@ class RelayGroupAdmin(admin.ModelAdmin):
 class RelayRelayGroupAssociationAdmin(admin.ModelAdmin):
     list_display = ('id', 'relay', 'relay_group', 'is_on')
     list_filter = ('relay', 'relay_group', 'is_on')
+
+@admin.register(RelaySchedule)
+class RelayScheduleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'relay', 'start_time', 'end_time')
+    list_filter = ('relay', 'start_time', 'end_time')
