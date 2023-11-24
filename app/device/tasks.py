@@ -5,13 +5,14 @@ from celery import shared_task
 
 from datetime import datetime, time
 from .models import RelaySchedule
-
+from django.conf import settings
 import requests
 import json
 
 
 def mqtt_request(device_info):
-    url = "http://localhost:8000/publish/"
+    # url = "http://localhost:8000/publish/"
+    url = settings.url
 
     payload = json.dumps(device_info)
     headers = {
