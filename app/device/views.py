@@ -15,8 +15,15 @@ from .serializers import DeviceSerializer, RelayGroupSerializer, RelaySerializer
 
 from rest_framework import viewsets
 
+# views.py
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .mqtt_functions import client
+
+
 def home(request):
     return render(request, "base.html")
+
 
 class DeviceViewSet(viewsets.ModelViewSet):
     """
@@ -25,11 +32,13 @@ class DeviceViewSet(viewsets.ModelViewSet):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
 
+
 class RelayGroupViewSet(viewsets.ModelViewSet):
     """
     """
     queryset = RelayGroup.objects.all()
     serializer_class = RelayGroupSerializer
+
 
 class RelayViewSet(viewsets.ModelViewSet):
     """
@@ -37,7 +46,20 @@ class RelayViewSet(viewsets.ModelViewSet):
     queryset = Relay.objects.all()
     serializer_class = RelaySerializer
 
+
 def publish_message(request):
-    request_data = json.loads(request.body)
-    rc, mid = mqtt_client.publish(request_data['topic'], request_data['msg'])
-    return JsonResponse({'code': rc})
+    try:
+        # Ensure the JSON data is properly loaded, and keys are enclosed in double quotes
+        device_info = json.loads(request.body.decode('utf-8'))
+
+        # Check if 'device_name' is present in device_info
+        if 'device_name' in device_info:
+            result = client.publish(device_info.get(
+                'device_name'), str(device_info))
+            print(device_info)
+            return JsonResponse({"status": "success"})
+        else:
+            return JsonResponse({"status": "error", "message": "Missing 'device_name' in the request data"})
+
+    except json.JSONDecodeError as e:
+        return JsonResponse({"status": "error", "message": f"JSON decoding error: {str(e)}"})

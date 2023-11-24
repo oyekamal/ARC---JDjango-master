@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     'device',
 
     'dmqtt',
@@ -72,7 +71,7 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
         'task': 'device.tasks.task_name',
-        'schedule': 5.0,  # Run the task every 60 seconds
+        'schedule': 10.0,  # Run the task every 60 seconds
     },
 }
 
