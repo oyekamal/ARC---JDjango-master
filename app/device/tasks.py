@@ -12,7 +12,8 @@ import json
 
 def mqtt_request(device_info):
     # url = "http://localhost:8000/publish/"
-    url = settings.url
+    url = settings.URL_PUB
+    print(url)
 
     payload = json.dumps(device_info)
     headers = {

@@ -27,14 +27,31 @@ services:
     env_file:
       - ./.env.prod.db
 
-  celery:
+  celery-worker:
+    container_name: celery-worker
     depends_on:
       - db
-      - redis  # Add dependency on the Redis service
+      - redis
     build:
       context: ./app
       dockerfile: Dockerfile.prod
-    command: celery -A core beat -l info
+    command: bash -c "celery -A core.celery worker -l info"  # Updated command
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+      - media_volume:/usr/src/app/media
+    env_file:
+      - ./.env.prod
+
+
+  celery-beat:
+    container_name: celery-beat
+    depends_on:
+      - db
+      - redis
+    build:
+      context: ./app
+      dockerfile: Dockerfile.prod
+    command: bash -c "celery -A core beat -l info"  # Updated command
     volumes:
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/media

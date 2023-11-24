@@ -63,7 +63,7 @@ MQTT_PORT = 1883
 MQTT_KEEPALIVE = 60
 MQTT_USER = ''
 MQTT_PASSWORD = ''
-url = "http://web:8000/publish/"
+URL_PUB = "http://web:8000/publish/"
 
 # Celery Configuration
 CELERY_BROKER_URL = 'redis://redis:6379/0'
