@@ -76,6 +76,21 @@ class DeviceListView(ListView):
     model = Device
     template_name = 'device/device_list.html'
     context_object_name = 'devices'
+    
+from django.http import JsonResponse
+from django.views import View
+
+class ToggleDeviceView(View):
+    def post(self, request, *args, **kwargs):
+        device_id = request.POST.get('device_id')
+        is_on = request.POST.get('is_on') == 'true'  # Convert 'true' string to boolean
+
+        device = Device.objects.get(pk=device_id)
+        device.is_on = is_on
+        device.save()
+
+        return JsonResponse({'status': 'success'})
+
 
 class DeviceDeleteView(DeleteView):
     model = Device
