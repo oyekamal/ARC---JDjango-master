@@ -21,6 +21,12 @@ from django.views.decorators.csrf import csrf_exempt
 from .mqtt_functions import client
 
 
+# views.py
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DeleteView
+
+
+
 def home(request):
     return render(request, "base.html")
 
@@ -63,3 +69,15 @@ def publish_message(request):
 
     except json.JSONDecodeError as e:
         return JsonResponse({"status": "error", "message": f"JSON decoding error: {str(e)}"})
+
+
+
+class DeviceListView(ListView):
+    model = Device
+    template_name = 'device/device_list.html'
+    context_object_name = 'devices'
+
+class DeviceDeleteView(DeleteView):
+    model = Device
+    template_name = 'device/device_confirm_delete.html'
+    success_url = reverse_lazy('device-list')

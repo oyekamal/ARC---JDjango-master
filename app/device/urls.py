@@ -19,5 +19,8 @@ urlpatterns = [
     path('api', include(router.urls)),
 
     path('publish/', views.publish_message, name='publish'),
+     path('devices/', views.DeviceListView.as_view(), name='device-list'),
+    path('devices/<int:pk>/delete/', views.DeviceDeleteView.as_view(), name='device-delete'),
+
 
 ]

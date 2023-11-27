@@ -1,0 +1,18 @@
+<!-- templates/device_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Device List</title>
+</head>
+<body>
+
+<h1>Device List</h1>
+
+<ul>
+    {% for device in devices %}
+        <li>{{ device.device_name }} - <a href="{% url 'device-delete' pk=device.pk %}">Delete</a></li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
