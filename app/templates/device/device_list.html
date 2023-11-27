@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>Device List</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -10,9 +12,43 @@
 
 <ul>
     {% for device in devices %}
-        <li>{{ device.device_name }} - <a href="{% url 'device-delete' pk=device.pk %}">Delete</a></li>
+        <li>
+            {{ device.device_name }} - 
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ device.pk }}">
+                Delete
+            </button>
+        </li>
+
+        <!-- Delete Modal -->
+        <div class="modal fade" id="deleteModal{{ device.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ device.pk }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel{{ device.pk }}">Confirm Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete "{{ device }}"?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form method="post" action="{% url 'device-delete' pk=device.id %}">
+                            {% csrf_token %}
+                            <input class="btn btn-danger" type="submit" value="Confirm">
+                        </form>
+                        <a type="button" class="btn btn-secondary" href="{% url 'device-list' %}">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endfor %}
 </ul>
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
