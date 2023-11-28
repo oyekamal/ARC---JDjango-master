@@ -1,0 +1,14 @@
+<!-- relayschedule_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>RelaySchedule List</h2>
+  <ul>
+    {% for relayschedule in object_list %}
+      <li>{{ relayschedule }}</li>
+      <a href="{% url 'relayschedule-edit' pk=relayschedule.pk %}">Edit</a>
+      <a href="{% url 'relayschedule-delete' pk=relayschedule.pk %}">Delete</a>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'relayschedule-create' %}">Create new relay schedule</a>
+{% endblock %}

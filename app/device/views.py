@@ -10,7 +10,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import permissions
 
-from .models import Device, RelayGroup, Relay
+from .models import Device, RelayGroup, Relay, RelaySchedule
 from .serializers import DeviceSerializer, RelayGroupSerializer, RelaySerializer
 
 from rest_framework import viewsets
@@ -22,7 +22,9 @@ from .mqtt_functions import client
 
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .forms import RelayForm, RelayGroupForm
+from .forms import RelayForm, RelayGroupForm, RelayScheduleForm
+
+
 
 def home(request):
     return render(request, "base.html")
@@ -134,3 +136,26 @@ class RelayGroupDeleteView(DeleteView):
     model = RelayGroup
     template_name = 'relaygroup/relaygroup_confirm_delete.html'
     success_url = reverse_lazy('relaygroup-list')
+
+
+
+class RelayScheduleListView(ListView):
+    model = RelaySchedule
+    template_name = 'relayschedule/relayschedule_list.html'
+
+class RelayScheduleCreateView(CreateView):
+    model = RelaySchedule
+    form_class = RelayScheduleForm
+    template_name = 'relayschedule/relayschedule_form.html'
+    success_url = reverse_lazy('relayschedule-list')
+
+class RelayScheduleUpdateView(UpdateView):
+    model = RelaySchedule
+    form_class = RelayScheduleForm
+    template_name = 'relayschedule/relayschedule_form.html'
+    success_url = reverse_lazy('relayschedule-list')
+
+class RelayScheduleDeleteView(DeleteView):
+    model = RelaySchedule
+    template_name = 'relayschedule/relayschedule_confirm_delete.html'
+    success_url = reverse_lazy('relayschedule-list')
