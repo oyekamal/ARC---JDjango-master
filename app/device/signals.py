@@ -4,7 +4,8 @@ from django.dispatch import receiver
 
 # import paho.mqtt.client as mqtt
 from device.mqtt_functions import client
-from .models import RelayGroup, Relay
+
+from .models import Relay, RelayGroup
 
 
 @receiver(post_save, sender=RelayGroup)

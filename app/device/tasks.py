@@ -1,13 +1,15 @@
+import json
+from datetime import datetime, time
+
+import requests
 from celery import shared_task
+from django.conf import settings
+
+from .models import RelaySchedule
 
 # celery -A core  beat -l info
 # celery -A core.celery worker -l info
 
-from datetime import datetime, time
-from .models import RelaySchedule
-from django.conf import settings
-import requests
-import json
 
 
 def mqtt_request(device_info):

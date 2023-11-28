@@ -1,5 +1,6 @@
-from .models import Device, RelayGroup, Relay
 from rest_framework import serializers
+
+from .models import Device, Relay, RelayGroup
 
 
 class DeviceSerializer(serializers.ModelSerializer):

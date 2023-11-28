@@ -1,6 +1,8 @@
 # forms.py
 from django import forms
-from .models import Relay, RelayGroup, RelaySchedule, RelayRelayGroupAssociation
+
+from .models import (Relay, RelayGroup, RelayRelayGroupAssociation,
+                     RelaySchedule)
 
 
 class RelayForm(forms.ModelForm):

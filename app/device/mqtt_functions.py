@@ -66,8 +66,9 @@ def on_connect(mqtt_client, userdata, flags, rc):
 
 
 def on_message(mqtt_client, userdata, msg):
-    from device.models import Device, Relay
     import ast
+
+    from device.models import Device, Relay
 
     print(f"Received message on topic: {msg.topic} with payload: {msg.payload}")
     string = msg.payload.decode("utf-8")

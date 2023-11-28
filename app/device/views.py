@@ -1,34 +1,26 @@
-from django.views import View
-from django.shortcuts import render
-
 # Create your views here.
 import json
-from django.http import JsonResponse
-from device.mqtt_functions import client as mqtt_client
-
-
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework import permissions
-
-from .models import Device, RelayGroup, Relay, RelaySchedule, RelayRelayGroupAssociation
-from .serializers import DeviceSerializer, RelayGroupSerializer, RelaySerializer
-
-from rest_framework import viewsets
 
 # views.py
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .mqtt_functions import client
-
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .forms import (
-    RelayForm,
-    RelayGroupForm,
-    RelayScheduleForm,
-    RelayRelayGroupAssociationForm,
-)
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from rest_framework import permissions, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+from device.mqtt_functions import client as mqtt_client
+
+from .forms import (RelayForm, RelayGroupForm, RelayRelayGroupAssociationForm,
+                    RelayScheduleForm)
+from .models import (Device, Relay, RelayGroup, RelayRelayGroupAssociation,
+                     RelaySchedule)
+from .mqtt_functions import client
+from .serializers import (DeviceSerializer, RelayGroupSerializer,
+                          RelaySerializer)
 
 
 def home(request):
