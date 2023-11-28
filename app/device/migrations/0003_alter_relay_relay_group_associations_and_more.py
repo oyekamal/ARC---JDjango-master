@@ -5,30 +5,40 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('device', '0002_alter_relay_device_and_more'),
+        ("device", "0002_alter_relay_device_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='relay',
-            name='relay_group_associations',
-            field=models.ManyToManyField(blank=True, null=True, related_name='relay_group_associations', to='device.relayrelaygroupassociation'),
+            model_name="relay",
+            name="relay_group_associations",
+            field=models.ManyToManyField(
+                blank=True,
+                null=True,
+                related_name="relay_group_associations",
+                to="device.relayrelaygroupassociation",
+            ),
         ),
         migrations.AlterField(
-            model_name='relay',
-            name='relay_groups',
-            field=models.ManyToManyField(blank=True, null=True, to='device.relaygroup'),
+            model_name="relay",
+            name="relay_groups",
+            field=models.ManyToManyField(blank=True, null=True, to="device.relaygroup"),
         ),
         migrations.AlterField(
-            model_name='relaygroup',
-            name='relays',
-            field=models.ManyToManyField(blank=True, null=True, to='device.relay'),
+            model_name="relaygroup",
+            name="relays",
+            field=models.ManyToManyField(blank=True, null=True, to="device.relay"),
         ),
         migrations.AlterField(
-            model_name='relayrelaygroupassociation',
-            name='relay_group',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='relay_group_associations', to='device.relaygroup'),
+            model_name="relayrelaygroupassociation",
+            name="relay_group",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="relay_group_associations",
+                to="device.relaygroup",
+            ),
         ),
     ]

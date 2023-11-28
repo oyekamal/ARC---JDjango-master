@@ -5,40 +5,56 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('device', '0001_initial'),
+        ("device", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='relay',
-            name='device',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='device.device'),
+            model_name="relay",
+            name="device",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="device.device",
+            ),
         ),
         migrations.AlterField(
-            model_name='relay',
-            name='relay_group_associations',
-            field=models.ManyToManyField(null=True, related_name='relay_group_associations', to='device.relayrelaygroupassociation'),
+            model_name="relay",
+            name="relay_group_associations",
+            field=models.ManyToManyField(
+                null=True,
+                related_name="relay_group_associations",
+                to="device.relayrelaygroupassociation",
+            ),
         ),
         migrations.AlterField(
-            model_name='relay',
-            name='relay_groups',
-            field=models.ManyToManyField(null=True, to='device.relaygroup'),
+            model_name="relay",
+            name="relay_groups",
+            field=models.ManyToManyField(null=True, to="device.relaygroup"),
         ),
         migrations.AlterField(
-            model_name='relaygroup',
-            name='relays',
-            field=models.ManyToManyField(null=True, to='device.relay'),
+            model_name="relaygroup",
+            name="relays",
+            field=models.ManyToManyField(null=True, to="device.relay"),
         ),
         migrations.AlterField(
-            model_name='relayrelaygroupassociation',
-            name='relay',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='device.relay'),
+            model_name="relayrelaygroupassociation",
+            name="relay",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="device.relay",
+            ),
         ),
         migrations.AlterField(
-            model_name='relayrelaygroupassociation',
-            name='relay_group',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='relay_group_associations', to='device.relaygroup'),
+            model_name="relayrelaygroupassociation",
+            name="relay_group",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="relay_group_associations",
+                to="device.relaygroup",
+            ),
         ),
     ]
