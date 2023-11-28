@@ -112,8 +112,8 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " href="/aboutopera/">
-                    About Opera
+                  <a class="nav-link " href="/about/">
+                    About ARC
                   </a>
                 </li>
 
@@ -122,34 +122,44 @@
 
           </li>
 
-          {% if user.is_authenticated %}
+          <!-- Device -->
           <li class="nav-item">
-            <a class="nav-link has-arrow " href="">
-              <i data-feather="user" class="nav-icon me-2 icon-xxs">
-              </i> Profile
+            <a class="nav-link" href="/devices/">
+              <i data-feather="home" class="nav-icon me-2 icon-xxs"></i>
+              Device
             </a>
-            <a class="nav-link has-arrow " href="/accounts/logout/">
-              <i data-feather="calendar" class="nav-icon me-2 icon-xxs">
-              </i> Sign Out
-            </a>
-          </li>
-          {% else %}
-          <!-- Nav item -->
-          <li class="nav-item">
-            <a class="nav-link has-arrow " href="/accounts/signup/">
-              <i data-feather="message-square" class="nav-icon me-2 icon-xxs">
-              </i> Sign Up
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link has-arrow " href="/accounts/login/">
-              <i data-feather="message-square" class="nav-icon me-2 icon-xxs">
-              </i> Sign In
-            </a>
-          </li>
-          {% endif %}
+          </li>          
 
+          <!-- relays -->
+          <li class="nav-item">
+            <a class="nav-link" href="/relays/">
+              <i data-feather="home" class="nav-icon me-2 icon-xxs"></i>
+              Relays
+            </a>
+          </li>     
 
+          <!-- relaygroups -->
+          <li class="nav-item">
+            <a class="nav-link" href="/relaygroups/">
+              <i data-feather="home" class="nav-icon me-2 icon-xxs"></i>
+              Relay Groups
+            </a>
+          </li>              
+        
+          <!-- relayschedules -->
+          <li class="nav-item">
+            <a class="nav-link" href="/relayschedules/">
+              <i data-feather="home" class="nav-icon me-2 icon-xxs"></i>
+              Relay Schedules
+            </a>
+          </li>           
+          <!-- relayrelaygroupassociations -->
+          <li class="nav-item">
+            <a class="nav-link" href="/relayrelaygroupassociations/">
+              <i data-feather="home" class="nav-icon me-2 icon-xxs"></i>
+              Relay Group Associations
+            </a>
+          </li>   
         </ul>
 
 
