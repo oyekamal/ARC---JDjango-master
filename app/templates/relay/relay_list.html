@@ -1,0 +1,13 @@
+<!-- relay_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Relay List</h2>
+  <ul>
+    {% for relay in object_list %}
+      <li>{{ relay }}</li>
+      <a href="{% url 'relay-edit' pk=relay.pk %}">Edit</a>
+      <a href="{% url 'relay-delete' pk=relay.pk %}">Delete</a>
+    {% endfor %}
+  </ul>
+{% endblock %}

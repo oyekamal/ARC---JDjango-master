@@ -23,9 +23,8 @@ from .mqtt_functions import client
 
 # views.py
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DeleteView
-
-
+from django.views.generic import ListView, UpdateView, DeleteView
+from .forms import RelayForm
 
 def home(request):
     return render(request, "base.html")
@@ -96,3 +95,21 @@ class DeviceDeleteView(DeleteView):
     model = Device
     template_name = 'device/device_confirm_delete.html'
     success_url = reverse_lazy('device-list')
+
+
+
+
+class RelayListView(ListView):
+    model = Relay
+    template_name = 'relay/relay_list.html'
+
+class RelayUpdateView(UpdateView):
+    model = Relay
+    form_class = RelayForm
+    template_name = 'relay/relay_edit.html'
+    success_url = reverse_lazy('relay-list')
+
+class RelayDeleteView(DeleteView):
+    model = Relay
+    template_name = 'relay/relay_confirm_delete.html'
+    success_url = reverse_lazy('relay-list')
