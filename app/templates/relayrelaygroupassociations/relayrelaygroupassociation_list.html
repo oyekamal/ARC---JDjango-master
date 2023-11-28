@@ -1,0 +1,14 @@
+<!-- relayrelaygroupassociation_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>RelayRelayGroupAssociation List</h2>
+  <ul>
+    {% for association in object_list %}
+      <li>{{ association }}</li>
+      <a href="{% url 'relayrelaygroupassociation-edit' pk=association.pk %}">Edit</a>
+      <a href="{% url 'relayrelaygroupassociation-delete' pk=association.pk %}">Delete</a>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'relayrelaygroupassociation-create' %}">Create new relay-relay group association</a>
+{% endblock %}

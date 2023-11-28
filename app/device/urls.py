@@ -38,4 +38,9 @@ urlpatterns = [
     path('relayschedules/<int:pk>/edit/', views.RelayScheduleUpdateView.as_view(), name='relayschedule-edit'),
     path('relayschedules/<int:pk>/delete/', views.RelayScheduleDeleteView.as_view(), name='relayschedule-delete'),
 
+    path('relayrelaygroupassociations/', views.RelayRelayGroupAssociationListView.as_view(), name='relayrelaygroupassociation-list'),
+    path('relayrelaygroupassociations/create/', views.RelayRelayGroupAssociationCreateView.as_view(), name='relayrelaygroupassociation-create'),
+    path('relayrelaygroupassociations/<int:pk>/edit/', views.RelayRelayGroupAssociationUpdateView.as_view(), name='relayrelaygroupassociation-edit'),
+    path('relayrelaygroupassociations/<int:pk>/delete/', views.RelayRelayGroupAssociationDeleteView.as_view(), name='relayrelaygroupassociation-delete'),
+
 ]

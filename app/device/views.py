@@ -10,7 +10,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import permissions
 
-from .models import Device, RelayGroup, Relay, RelaySchedule
+from .models import Device, RelayGroup, Relay, RelaySchedule, RelayRelayGroupAssociation
 from .serializers import DeviceSerializer, RelayGroupSerializer, RelaySerializer
 
 from rest_framework import viewsets
@@ -22,7 +22,8 @@ from .mqtt_functions import client
 
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .forms import RelayForm, RelayGroupForm, RelayScheduleForm
+from .forms import RelayForm, RelayGroupForm, RelayScheduleForm, RelayRelayGroupAssociationForm
+
 
 
 
@@ -159,3 +160,26 @@ class RelayScheduleDeleteView(DeleteView):
     model = RelaySchedule
     template_name = 'relayschedule/relayschedule_confirm_delete.html'
     success_url = reverse_lazy('relayschedule-list')
+
+
+
+class RelayRelayGroupAssociationListView(ListView):
+    model = RelayRelayGroupAssociation
+    template_name = 'relayrelaygroupassociations/relayrelaygroupassociation_list.html'
+
+class RelayRelayGroupAssociationCreateView(CreateView):
+    model = RelayRelayGroupAssociation
+    form_class = RelayRelayGroupAssociationForm
+    template_name = 'relayrelaygroupassociations/relayrelaygroupassociation_form.html'
+    success_url = reverse_lazy('relayrelaygroupassociation-list')
+
+class RelayRelayGroupAssociationUpdateView(UpdateView):
+    model = RelayRelayGroupAssociation
+    form_class = RelayRelayGroupAssociationForm
+    template_name = 'relayrelaygroupassociations/relayrelaygroupassociation_form.html'
+    success_url = reverse_lazy('relayrelaygroupassociation-list')
+
+class RelayRelayGroupAssociationDeleteView(DeleteView):
+    model = RelayRelayGroupAssociation
+    template_name = 'relayrelaygroupassociations/relayrelaygroupassociation_confirm_delete.html'
+    success_url = reverse_lazy('relayrelaygroupassociation-list')

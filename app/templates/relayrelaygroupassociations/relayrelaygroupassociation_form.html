@@ -1,0 +1,12 @@
+<!-- relayrelaygroupassociation_form.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{% if request.resolver_match.url_name == 'relayrelaygroupassociation-create' %}Create{% else %}Edit{% endif %} RelayRelayGroupAssociation</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+  </form>
+  <a href="{% url 'relayrelaygroupassociation-list' %}">Cancel</a>
+{% endblock %}

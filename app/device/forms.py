@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import Relay, RelayGroup, RelaySchedule
+from .models import Relay, RelayGroup, RelaySchedule, RelayRelayGroupAssociation
 
 class RelayForm(forms.ModelForm):
     class Meta:
@@ -18,3 +18,9 @@ class RelayScheduleForm(forms.ModelForm):
     class Meta:
         model = RelaySchedule
         fields = ['relay', 'start_time', 'end_time']
+
+class RelayRelayGroupAssociationForm(forms.ModelForm):
+    class Meta:
+        model = RelayRelayGroupAssociation
+        fields = ['relay', 'relay_group', 'is_on']
+
