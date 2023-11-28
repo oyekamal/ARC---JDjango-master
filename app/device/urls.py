@@ -28,5 +28,10 @@ urlpatterns = [
     path('relays/<int:pk>/edit/', views.RelayUpdateView.as_view(), name='relay-edit'),
     path('relays/<int:pk>/delete/', views.RelayDeleteView.as_view(), name='relay-delete'),
 
+    path('relaygroups/', views.RelayGroupListView.as_view(), name='relaygroup-list'),
+    path('relaygroups/create/', views.RelayGroupCreateView.as_view(), name='relaygroup-create'),
+    path('relaygroups/<int:pk>/edit/', views.RelayGroupUpdateView.as_view(), name='relaygroup-edit'),
+    path('relaygroups/<int:pk>/delete/', views.RelayGroupDeleteView.as_view(), name='relaygroup-delete'),
+
 
 ]

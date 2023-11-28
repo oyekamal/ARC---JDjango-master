@@ -1,0 +1,14 @@
+<!-- relaygroup_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>RelayGroup List</h2>
+  <ul>
+    {% for relaygroup in object_list %}
+      <li>{{ relaygroup }}</li>
+      <a href="{% url 'relaygroup-edit' pk=relaygroup.pk %}">Edit</a>
+      <a href="{% url 'relaygroup-delete' pk=relaygroup.pk %}">Delete</a>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'relaygroup-create' %}">Create new relay group</a>
+{% endblock %}

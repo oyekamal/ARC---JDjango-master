@@ -20,11 +20,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .mqtt_functions import client
 
-
-# views.py
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView, DeleteView
-from .forms import RelayForm
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from .forms import RelayForm, RelayGroupForm
 
 def home(request):
     return render(request, "base.html")
@@ -113,3 +111,26 @@ class RelayDeleteView(DeleteView):
     model = Relay
     template_name = 'relay/relay_confirm_delete.html'
     success_url = reverse_lazy('relay-list')
+
+
+
+class RelayGroupListView(ListView):
+    model = RelayGroup
+    template_name = 'relaygroup/relaygroup_list.html'
+
+class RelayGroupCreateView(CreateView):
+    model = RelayGroup
+    form_class = RelayGroupForm
+    template_name = 'relaygroup/relaygroup_form.html'
+    success_url = reverse_lazy('relaygroup-list')
+
+class RelayGroupUpdateView(UpdateView):
+    model = RelayGroup
+    form_class = RelayGroupForm
+    template_name = 'relaygroup/relaygroup_form.html'
+    success_url = reverse_lazy('relaygroup-list')
+
+class RelayGroupDeleteView(DeleteView):
+    model = RelayGroup
+    template_name = 'relaygroup/relaygroup_confirm_delete.html'
+    success_url = reverse_lazy('relaygroup-list')
