@@ -1,33 +1,67 @@
 <!-- templates/device_list.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Device List</title>
-    <!-- Include Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+{% extends 'base.html' %}
 
-<h1>Device List</h1>
+{% block content %}
 
-<ul>
-    {% for device in devices %}
-        <li>
-            {{ device.device_name }} - 
-            <!-- Add a checkbox to toggle is_on status -->
-            <input type="checkbox" class="device-toggle" data-device-id="{{ device.pk }}" {% if device.is_on %}checked{% endif %}>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ device.pk }}">
-                Delete
-            </button>
-        </li>
+<div class="row">
+    <div class="col-12">
+        <div class="mb-5">
+            <h3 class="mb-0">Devices</h3>
+          </div>
+      <div class="card">
 
-        <!-- Delete Modal -->
-        <div class="modal fade" id="deleteModal{{ device.pk }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ device.pk }}" aria-hidden="true">
-            <!-- ... (unchanged) ... -->
+        <div class="card-body">
+          <div class="table-responsive table-card">
+            <table id="example" class="table text-nowrap table-centered mt-0" style="width: 100%">
+              <thead class="table-light">
+                <tr>
+                  <th class="pe-0">
+                  </th>
+                  <th class="ps-1">Devices Name</th>
+                  <th>Device type</th>
+                  <th>device IP</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for device in devices %}
+
+                <tr>
+                  <td class="pe-0">
+                  </td>
+                  <td class="ps-0">
+                    <div class="d-flex align-items-center">
+                      <div class="ms-3">
+                        <h5 class="mb-0">
+                          <a href="#!" class="text-inherit">{{ device.device_name }}</a>
+                        </h5>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{{ device.device_type }}</td>
+                  <td>{{ device.device_ip }}</td>
+                  <td><input type="checkbox" class="device-toggle" data-device-id="{{ device.pk }}" {% if device.is_on %}checked{% endif %}>
+                  </td>
+                  <td>
+                    <a href="#!" class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                      data-template="trashOne">
+                      <i data-feather="trash-2" class="icon-xs"></i>
+                      <div id="trashOne" class="d-none">
+                        <span>Delete</span>
+                      </div>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
         </div>
-    {% endfor %}
-</ul>
-
+      </div>
+    </div>
+</div>
 <!-- Include Bootstrap JS and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -63,5 +97,4 @@
     });
 </script>
 
-</body>
-</html>
+{% endblock %}
