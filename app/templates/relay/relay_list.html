@@ -2,12 +2,106 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Relay List</h2>
+  <!-- <h2>Relay List</h2>
   <ul>
-    {% for relay in object_list %}
+
       <li>{{ relay }}</li>
-      <a href="{% url 'relay-edit' pk=relay.pk %}">Edit</a>
-      <a href="{% url 'relay-delete' pk=relay.pk %}">Delete</a>
-    {% endfor %}
-  </ul>
+      <a >Edit</a>
+      <a >Delete</a>
+  </ul> -->
+
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-12">
+      <!-- Page header -->
+      <div class="mb-5">
+        <h3 class="mb-0">Relays</h3>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!-- row -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive table-card">
+              <table id="example" class="table text-nowrap table-centered mt-0" style="width: 100%">
+                <thead class="table-light">
+                  <tr>
+                    <th class="pe-0">
+                      <div class="form-check">
+                        <label class="form-check-label" for="checkAll">
+                        </label>
+                      </div>
+                    </th>
+                    <th class="ps-1">Relay Name</th>
+                    <th>Pin</th>
+                    <th>Device</th>
+                    <th>update</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for relay in object_list %}
+                  <tr>
+                    <td class="pe-0">
+                      <div class="form-check">
+                        <label class="form-check-label" for="contactCheckbox2">
+                        </label>
+                      </div>
+                    </td>
+                    <td class="ps-0">
+                      <div class="d-flex align-items-center">
+                        <div class="ms-3">
+                          <h5 class="mb-0">
+                            <a href="#!" class="text-inherit">{{ relay.relay_name }}</a>
+                          </h5>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{{ relay.relay_pin }}</td>
+                    <td>{{ relay.device }}</td>
+                    <td><input class="form-check-input" type="checkbox" value="" id="contactCheckbox2"></td>
+                    <td>
+                      {% if relay.is_on %}
+                      <span class="badge badge-success-soft">on</span>
+                      {% else %}
+                      <span class="badge badge-danger-soft">off</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <a href="#!" class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                        data-template="eyeOne">
+                        <i data-feather="eye" class="icon-xs"></i>
+                        <div id="eyeOne" class="d-none">
+                          <span>View</span>
+                        </div>
+                      </a>
+                      <a href="{% url 'relay-edit' pk=relay.pk %}" class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                        data-template="editOne">
+                        <i data-feather="edit" class="icon-xs"></i>
+                        <div id="editOne" class="d-none">
+                          <span>Edit</span>
+                        </div>
+                      </a>
+                      <a href="{% url 'relay-delete' pk=relay.pk %}" class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                        data-template="trashOne">
+                        <i data-feather="trash-2" class="icon-xs"></i>
+                        <div id="trashOne" class="d-none">
+                          <span>Delete</span>
+                        </div>
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
 {% endblock %}
