@@ -58,7 +58,9 @@ def publish_message(request):
         # Check if 'device_name' is present in device_info
         if "device_name" in device_info:
             result = client.publish(device_info.get("device_name"), str(device_info))
+            print('---------------- API start ----------------')
             print(device_info)
+            print('---------------- API end ------------------')
             return JsonResponse({"status": "success"})
         else:
             return JsonResponse(

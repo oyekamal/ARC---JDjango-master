@@ -30,10 +30,9 @@ def mqtt_request(device_info):
 @shared_task
 def task_name():
     # Your task logic goes here
-    relay_schedules = RelaySchedule.objects.all()
+    relay_schedules = RelaySchedule.objects.filter(is_on=True)
     for each_schedule in relay_schedules:
         current_time = datetime.now().time()
-
         if each_schedule.start_time <= current_time <= each_schedule.end_time:
             print("Relay on")
             relay = each_schedule.relay

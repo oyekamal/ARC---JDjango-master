@@ -1,4 +1,4 @@
-local = True
+local = False
 
 if local:
     from .local_settings import *
