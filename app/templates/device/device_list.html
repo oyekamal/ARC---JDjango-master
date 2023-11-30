@@ -80,7 +80,8 @@
                 url: '{% url "toggle-device" %}',
                 method: 'POST',
                 data: {
-                    'device_id': deviceId,
+                    'id': deviceId,
+                    'type': 'device',
                     'is_on': isOn,
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 },

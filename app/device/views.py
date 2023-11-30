@@ -82,13 +82,19 @@ class DeviceListView(ListView):
 
 class ToggleDeviceView(View):
     def post(self, request, *args, **kwargs):
-        device_id = request.POST.get("device_id")
+        id = request.POST.get("id")
         # Convert 'true' string to boolean
         is_on = request.POST.get("is_on") == "true"
-
-        device = Device.objects.get(pk=device_id)
-        device.is_on = is_on
-        device.save()
+        type = request.POST.get("type")
+        print(type)
+        if type == "device":
+            device = Device.objects.get(pk=id)
+            device.is_on = is_on
+            device.save()
+        elif type == "relay":
+            relay = Relay.objects.get(pk=id)
+            relay.is_on = is_on
+            relay.save()
 
         return JsonResponse({"status": "success"})
 
