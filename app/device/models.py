@@ -65,6 +65,7 @@ class RelaySchedule(models.Model):
     relay = models.ForeignKey(Relay, on_delete=models.CASCADE)
     start_time = models.TimeField()
     end_time = models.TimeField()
+    is_on = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
