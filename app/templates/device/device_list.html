@@ -44,7 +44,7 @@
                   <td><input type="checkbox" class="device-toggle" data-device-id="{{ device.pk }}" {% if device.is_on %}checked{% endif %}>
                   </td>
                   <td>
-                    <a href="#!" class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
+                    <a href="{% url 'device-delete' pk=device.pk %}" class="btn btn-ghost btn-icon btn-sm rounded-circle texttooltip"
                       data-template="trashOne">
                       <i data-feather="trash-2" class="icon-xs"></i>
                       <div id="trashOne" class="d-none">
