@@ -101,6 +101,11 @@ class ToggleDeviceView(View):
             relay_group.is_on = is_on
             relay_group.save()
 
+        elif type == "relay_group_association":
+            relay_group_association = RelayRelayGroupAssociation.objects.get(pk=id)
+            relay_group_association.is_on = is_on
+            relay_group_association.save()
+
         return JsonResponse({"status": "success"})
 
 
