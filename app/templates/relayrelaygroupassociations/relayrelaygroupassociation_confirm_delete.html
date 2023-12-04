@@ -6,7 +6,8 @@
   <p>Are you sure you want to delete "{{ object }}"?</p>
   <form method="post">
     {% csrf_token %}
-    <button type="submit">Yes, delete</button>
+    <button class="btn btn-primary" type="submit">Yes, delete</button>
+    <a class="btn btn-secondary" href="{% url 'relayrelaygroupassociation-list' %}">Cancel</a>
+
   </form>
-  <a href="{% url 'relayrelaygroupassociation-list' %}">Cancel</a>
 {% endblock %}

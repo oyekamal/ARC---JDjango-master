@@ -1,12 +1,14 @@
 <!-- relayrelaygroupassociation_form.html -->
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
   <h2>{% if request.resolver_match.url_name == 'relayrelaygroupassociation-create' %}Create{% else %}Edit{% endif %} RelayRelayGroupAssociation</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save changes</button>
+    {{ form|crispy }}
+    <button  class="btn btn-primary" type="submit">Save changes</button>
+    <a class="btn btn-secondary" href="{% url 'relayrelaygroupassociation-list' %}">Cancel</a>
+
   </form>
-  <a href="{% url 'relayrelaygroupassociation-list' %}">Cancel</a>
 {% endblock %}

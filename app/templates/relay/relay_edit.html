@@ -2,10 +2,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load crispy_forms_tags %}
+
   <h2>Edit Relay</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save changes</button>
+    {{ form|crispy }}
+    <button  class="btn btn-primary" type="submit">Save changes</button>
   </form>
 {% endblock %}
