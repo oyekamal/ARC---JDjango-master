@@ -3,7 +3,9 @@ from django import forms
 
 from .models import (Relay, RelayGroup, RelayRelayGroupAssociation,
                      RelaySchedule)
+from django.forms import Select
 
+import datetime as dt
 
 class RelayForm(forms.ModelForm):
     class Meta:
@@ -25,6 +27,10 @@ class RelayGroupForm(forms.ModelForm):
 
 
 class RelayScheduleForm(forms.ModelForm):
+    HOUR_CHOICES = [(dt.time(hour=x), '{:02d}:00'.format(x)) for x in range(0, 24)]
+    start_time = forms.TimeField(widget=Select(choices=HOUR_CHOICES))
+    end_time = forms.TimeField(widget=Select(choices=HOUR_CHOICES))
+
     class Meta:
         model = RelaySchedule
         fields = ["relay", "start_time", "end_time"]
