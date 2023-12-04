@@ -14,6 +14,7 @@ services:
     env_file:
       - ./.env.prod
     depends_on:
+      - mqtt
       - db
       - redis  # Add dependency on the Redis service
     ports:

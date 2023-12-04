@@ -8,12 +8,13 @@ def update_create_device(payload):
     from device.models import Device, Relay
 
     if "device_name" in payload and "ip" in payload:
-        device_name = payload["device_name"]
+        device_name = payload.get("device_name")
+        device_type = payload.get("device_type")
         device_ip = payload["ip"]
 
         # Check if the device already exists in the database
         existing_device = Device.objects.filter(
-            device_name=device_name, device_ip=device_ip
+            device_name=device_name, device_ip=device_ip, device_type=device_type
         ).first()
 
         if existing_device:
@@ -39,6 +40,7 @@ def update_create_device(payload):
             new_device = Device(
                 device_name=device_name,
                 device_ip=device_ip,
+                device_type=device_type,
                 is_on=True,  # Update as needed
                 extra=payload.get("extra_info"),  # Update extra info as needed
             )
