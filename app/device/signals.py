@@ -1,9 +1,8 @@
 # your_app/signals.py
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
 # import paho.mqtt.client as mqtt
 from device.mqtt_functions import client
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from .models import Relay, RelayGroup
 
