@@ -11,7 +11,6 @@ from .models import RelaySchedule
 # celery -A core.celery worker -l info
 
 
-
 def mqtt_request(device_info):
     # url = "http://localhost:8000/publish/"
     url = settings.URL_PUB

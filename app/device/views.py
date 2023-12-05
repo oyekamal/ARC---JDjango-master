@@ -1,6 +1,7 @@
 # Create your views here.
 import json
 
+from device.mqtt_functions import client as mqtt_client
 # views.py
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -11,8 +12,6 @@ from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
-from device.mqtt_functions import client as mqtt_client
 
 from .forms import (RelayForm, RelayGroupForm, RelayRelayGroupAssociationForm,
                     RelayScheduleForm)
@@ -58,9 +57,9 @@ def publish_message(request):
         # Check if 'device_name' is present in device_info
         if "device_name" in device_info:
             result = client.publish(device_info.get("device_name"), str(device_info))
-            print('---------------- API start ----------------')
+            print("---------------- API start ----------------")
             print(device_info)
-            print('---------------- API end ------------------')
+            print("---------------- API end ------------------")
             return JsonResponse({"status": "success"})
         else:
             return JsonResponse(

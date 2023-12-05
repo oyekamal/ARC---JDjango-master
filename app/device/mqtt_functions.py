@@ -1,6 +1,7 @@
+import sys
+
 import paho.mqtt.client as mqtt
 from django.conf import settings
-import sys
 
 # from device.models import Device, Relay
 
@@ -67,11 +68,13 @@ def on_connect(mqtt_client, userdata, flags, rc):
     else:
         print("Bad connection. Code:", rc)
 
+
 def off_connect(mqtt_client, userdata, flags, rc):
     if rc == 0:
         print("Connected successfully")
     else:
         print("Bad connection. Code:", rc)
+
 
 def on_message(mqtt_client, userdata, msg):
     import ast
@@ -91,8 +94,8 @@ def on_message(mqtt_client, userdata, msg):
 
 client = mqtt.Client()
 
-if 'runserver' in sys.argv:
-   client.on_connect = on_connect
+if "runserver" in sys.argv:
+    client.on_connect = on_connect
 else:
     client.on_connect = off_connect
 
