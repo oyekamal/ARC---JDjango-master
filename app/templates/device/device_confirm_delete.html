@@ -6,7 +6,7 @@
   <p>Are you sure you want to delete "{{ object }}"?</p>
   <form method="post" action="{% url 'device-delete' pk=object.pk %}">
     {% csrf_token %}
-    <input type="submit" value="Confirm">
+    <input class="btn btn-primary" type="submit" value="Confirm">
+    <a class="btn btn-secondary" href="{% url 'device-list' %}">Cancel</a>
   </form>
-  <a href="{% url 'device-list' %}">Cancel</a>
 {% endblock %}
