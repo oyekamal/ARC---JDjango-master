@@ -2,6 +2,7 @@
 import json
 
 from device.mqtt_functions import client as mqtt_client
+
 # views.py
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -13,13 +14,15 @@ from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .forms import (RelayForm, RelayGroupForm, RelayRelayGroupAssociationForm,
-                    RelayScheduleForm)
-from .models import (Device, Relay, RelayGroup, RelayRelayGroupAssociation,
-                     RelaySchedule)
+from .forms import (
+    RelayForm,
+    RelayGroupForm,
+    RelayRelayGroupAssociationForm,
+    RelayScheduleForm,
+)
+from .models import Device, Relay, RelayGroup, RelayRelayGroupAssociation, RelaySchedule
 from .mqtt_functions import client
-from .serializers import (DeviceSerializer, RelayGroupSerializer,
-                          RelaySerializer)
+from .serializers import DeviceSerializer, RelayGroupSerializer, RelaySerializer
 
 
 def home(request):

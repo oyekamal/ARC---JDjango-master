@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import (Device, Relay, RelayGroup, RelayRelayGroupAssociation,
-                     RelaySchedule)
+from .models import Device, Relay, RelayGroup, RelayRelayGroupAssociation, RelaySchedule
 
 
 @admin.register(Device)

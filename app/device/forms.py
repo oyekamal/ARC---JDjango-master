@@ -4,8 +4,9 @@ import datetime as dt
 from django import forms
 from django.forms import Select
 
-from .models import (Relay, RelayGroup, RelayRelayGroupAssociation,
-                     RelaySchedule)
+from .models import Relay, RelayGroup, RelayRelayGroupAssociation, RelaySchedule
+
+from django.forms import CheckboxSelectMultiple
 
 
 class RelayForm(forms.ModelForm):
@@ -22,6 +23,12 @@ class RelayForm(forms.ModelForm):
 
 
 class RelayGroupForm(forms.ModelForm):
+    relays = forms.ModelMultipleChoiceField(
+        queryset=Relay.objects.all(),
+        widget=CheckboxSelectMultiple,
+        required=False,  # Set to True if you want to make it a required field
+    )
+
     class Meta:
         model = RelayGroup
         fields = ["group_name", "is_on", "relays"]
