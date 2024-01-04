@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-a4u%0mq8&u0j#abr7%^0l2-kx36+*4exf$few88u^1zcc^-=1y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "device",
     "dmqtt",
+    # other apps
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
     "rest_framework",
     "corsheaders",
     "django_extensions",
@@ -54,6 +58,31 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 CORS_ORIGIN_ALLOW_ALL = True
+
+ACCOUNT_EMAIL_REQUIRED = False
+
+
+# Make email verification mandatory to avoid junk email accounts
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+EMAIL_TIMEOUT = 5
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL ="kamal.umar0987@gmail.com"
+EMAIL_HOST_PASSWORD = "guhwrrcrmkxanuaz"
+EMAIL_SUBJECT_PREFIX = 'Mouthlipsync'
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 MQTT_SERVER = "broker.hivemq.com"
 MQTT_PORT = 1883
@@ -99,6 +128,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -114,6 +144,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -137,18 +169,18 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    # },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    # },
 ]
 
 
