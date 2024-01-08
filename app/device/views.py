@@ -146,7 +146,7 @@ class RelayDeleteView(DeleteView):
 class RelayGroupListView(PermissionRequiredMixin, ListView):
     model = RelayGroup
     template_name = "relaygroup/relaygroup_list.html"
-    permission_required = 'device.view_relaygroup'
+    permission_required = "device.view_relaygroup"
 
 
 class RelayGroupCreateView(PermissionRequiredMixin, CreateView):
@@ -154,7 +154,7 @@ class RelayGroupCreateView(PermissionRequiredMixin, CreateView):
     form_class = RelayGroupForm
     template_name = "relaygroup/relaygroup_form.html"
     success_url = reverse_lazy("relaygroup-list")
-    permission_required = 'device.add_relaygroup'
+    permission_required = "device.add_relaygroup"
 
 
 class RelayGroupUpdateView(PermissionRequiredMixin, UpdateView):
@@ -162,14 +162,14 @@ class RelayGroupUpdateView(PermissionRequiredMixin, UpdateView):
     form_class = RelayGroupForm
     template_name = "relaygroup/relaygroup_form.html"
     success_url = reverse_lazy("relaygroup-list")
-    permission_required = 'device.change_relaygroup'
+    permission_required = "device.change_relaygroup"
 
 
 class RelayGroupDeleteView(PermissionRequiredMixin, DeleteView):
     model = RelayGroup
     template_name = "relaygroup/relaygroup_confirm_delete.html"
     success_url = reverse_lazy("relaygroup-list")
-    permission_required = 'device.delete_relaygroup'
+    permission_required = "device.delete_relaygroup"
 
 
 class RelayScheduleListView(ListView):
