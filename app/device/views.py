@@ -23,6 +23,7 @@ from .forms import (
 from .models import Device, Relay, RelayGroup, RelayRelayGroupAssociation, RelaySchedule
 from .mqtt_functions import client
 from .serializers import DeviceSerializer, RelayGroupSerializer, RelaySerializer
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 def home(request):
@@ -142,29 +143,33 @@ class RelayDeleteView(DeleteView):
     success_url = reverse_lazy("relay-list")
 
 
-class RelayGroupListView(ListView):
+class RelayGroupListView(PermissionRequiredMixin, ListView):
     model = RelayGroup
     template_name = "relaygroup/relaygroup_list.html"
+    permission_required = 'device.view_relaygroup'
 
 
-class RelayGroupCreateView(CreateView):
+class RelayGroupCreateView(PermissionRequiredMixin, CreateView):
     model = RelayGroup
     form_class = RelayGroupForm
     template_name = "relaygroup/relaygroup_form.html"
     success_url = reverse_lazy("relaygroup-list")
+    permission_required = 'device.add_relaygroup'
 
 
-class RelayGroupUpdateView(UpdateView):
+class RelayGroupUpdateView(PermissionRequiredMixin, UpdateView):
     model = RelayGroup
     form_class = RelayGroupForm
     template_name = "relaygroup/relaygroup_form.html"
     success_url = reverse_lazy("relaygroup-list")
+    permission_required = 'device.change_relaygroup'
 
 
-class RelayGroupDeleteView(DeleteView):
+class RelayGroupDeleteView(PermissionRequiredMixin, DeleteView):
     model = RelayGroup
     template_name = "relaygroup/relaygroup_confirm_delete.html"
     success_url = reverse_lazy("relaygroup-list")
+    permission_required = 'device.delete_relaygroup'
 
 
 class RelayScheduleListView(ListView):
