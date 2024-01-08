@@ -21,4 +21,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("", include("device.urls")),
+    path(
+        "", include("user.urls")
+    ),  # Replace 'yourapp' with the actual name of your app
 ]
