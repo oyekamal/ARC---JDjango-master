@@ -132,6 +132,34 @@
             </div>
 
           </li>
+          {% if user.is_authenticated %}
+          {% if user.is_staff or user.is_admin %}
+          <li class="nav-item">
+            <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navUsers"
+              aria-expanded="false" aria-controls="navDashboard">
+              <i data-feather="home" class="nav-icon me-2 icon-xxs"></i>
+              Users
+            </a>
+
+            <div id="navUsers" class="collapse" data-bs-parent="#sideNavbar">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link " href="/users/">
+                    All Users
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="/users/create/">
+                    Add Users
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+
+          </li>
+          {% endif %}
+          {% endif %}
 
           <!-- Device -->
           <li class="nav-item">
