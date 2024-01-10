@@ -29242,12 +29242,14 @@ fieldset:disabled .btn {
 
 @media (max-width:768px) {
     [data-layout=horizontal] .header .navbar {
-        margin: 0 auto
+        margin: 0 auto;
+        left: 0;
     }
 }
 
 [data-layout=horizontal] .header #nav-toggle {
-    display: none
+    display: none;
+    left: 0;
 }
 
 [data-layout=horizontal] .header .navbar-brand {
@@ -29255,7 +29257,7 @@ fieldset:disabled .btn {
 }
 
 .header .navbar {
-    left: 260px;
+    left: 0;
     padding: .625rem 1.5rem;
     position: fixed;
     right: 0;
