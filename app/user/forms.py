@@ -28,3 +28,17 @@ class CustomUserCreationForm(forms.ModelForm):
                 user.groups.set(groups)
 
         return user
+    
+class ChangePasswordForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ("password",)
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        user.is_active = True
+        if commit:
+            user.save()
+        return user
