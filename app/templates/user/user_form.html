@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load crispy_forms_tags %}
+
   <h2>{% if form.instance.pk %}Edit{% else %}Create{% endif %} User</h2>
   <form method="post" action="">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
+    {{ form|crispy }}
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a class="btn btn-secondary" href="{% url 'user-list' %}">Cancel</a>
   </form>
-  <a href="{% url 'user-list' %}">Cancel</a>
 {% endblock %}
