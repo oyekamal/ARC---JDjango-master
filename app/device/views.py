@@ -177,29 +177,33 @@ class RelayGroupDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = "device.delete_relaygroup"
 
 
-class RelayScheduleListView(ListView):
+class RelayScheduleListView(PermissionRequiredMixin, ListView):
     model = RelaySchedule
     template_name = "relayschedule/relayschedule_list.html"
+    permission_required = "device.view_relayschedule"
 
 
-class RelayScheduleCreateView(CreateView):
+class RelayScheduleCreateView(PermissionRequiredMixin, CreateView):
     model = RelaySchedule
     form_class = RelayScheduleForm
     template_name = "relayschedule/relayschedule_form.html"
     success_url = reverse_lazy("relayschedule-list")
+    permission_required = "device.add_relayschedule"
 
 
-class RelayScheduleUpdateView(UpdateView):
+class RelayScheduleUpdateView(PermissionRequiredMixin, UpdateView):
     model = RelaySchedule
     form_class = RelayScheduleForm
     template_name = "relayschedule/relayschedule_form.html"
     success_url = reverse_lazy("relayschedule-list")
+    permission_required = "device.change_relayschedule"
 
 
-class RelayScheduleDeleteView(DeleteView):
+class RelayScheduleDeleteView(PermissionRequiredMixin, DeleteView):
     model = RelaySchedule
     template_name = "relayschedule/relayschedule_confirm_delete.html"
     success_url = reverse_lazy("relayschedule-list")
+    permission_required = "device.delete_relayschedule"
 
 
 class RelayRelayGroupAssociationListView(ListView):
