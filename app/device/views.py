@@ -60,7 +60,8 @@ def publish_message(request):
 
         # Check if 'device_name' is present in device_info
         if "device_name" in device_info:
-            result = client.publish(device_info.get("device_name"), str(device_info))
+            result = client.publish(device_info.get(
+                "device_name"), str(device_info))
             print("---------------- API start ----------------")
             print(device_info)
             print("---------------- API end ------------------")
@@ -107,7 +108,8 @@ class ToggleDeviceView(View):
             relay_group.save()
 
         elif type == "relay_group_association":
-            relay_group_association = RelayRelayGroupAssociation.objects.get(pk=id)
+            relay_group_association = RelayRelayGroupAssociation.objects.get(
+                pk=id)
             relay_group_association.is_on = is_on
             relay_group_association.save()
 
@@ -125,22 +127,25 @@ class DeviceDeleteView(DeleteView):
     success_url = reverse_lazy("device-list")
 
 
-class RelayListView(ListView):
+class RelayListView(PermissionRequiredMixin, ListView):
     model = Relay
     template_name = "relay/relay_list.html"
+    permission_required = "device.view_relay"
 
 
-class RelayUpdateView(UpdateView):
+class RelayUpdateView(PermissionRequiredMixin, UpdateView):
     model = Relay
     form_class = RelayForm
     template_name = "relay/relay_edit.html"
     success_url = reverse_lazy("relay-list")
+    permission_required = "device.change_relay"
 
 
-class RelayDeleteView(DeleteView):
+class RelayDeleteView(PermissionRequiredMixin, DeleteView):
     model = Relay
     template_name = "relay/relay_confirm_delete.html"
     success_url = reverse_lazy("relay-list")
+    permission_required = "device.delete_relay"
 
 
 class RelayGroupListView(PermissionRequiredMixin, ListView):
