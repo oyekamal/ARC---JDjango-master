@@ -44,7 +44,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "device",
+    "user",
     "dmqtt",
+    # other apps
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
     "rest_framework",
     "corsheaders",
     "django_extensions",
@@ -58,7 +63,30 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 CORS_ORIGIN_ALLOW_ALL = True
 
-# ...
+ACCOUNT_EMAIL_REQUIRED = False
+
+
+# Make email verification mandatory to avoid junk email accounts
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+EMAIL_TIMEOUT = 5
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = "kamal.umar0987@gmail.com"
+EMAIL_HOST_PASSWORD = "guhwrrcrmkxanuaz"
+EMAIL_SUBJECT_PREFIX = "Mouthlipsync"
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 # MQTT Configuration
 MQTT_SERVER = "broker.hivemq.com"
@@ -106,6 +134,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -179,7 +208,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")  ##specify static root
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")  # specify static root
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
