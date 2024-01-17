@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+
+{% block title %} 404 {% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="row">
+  <!-- col -->
+  <div class="col-12">
+    <!-- content -->
+    <div class="text-center">
+      <div class="mb-3">
+        <!-- img -->
+        <!-- <img src="../assets/images/error/404-error-img.png" alt="Image"
+          class="img-fluid"> -->
+      </div>
+      <!-- text -->
+      <h1 class="display-4 ">Oops! {{message}}.</h1>
+      <p class="mb-4">{{detail}}.</p>
+        <!-- button -->
+      <a href="/" class="btn btn-primary">Go Home</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

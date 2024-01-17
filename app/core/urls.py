@@ -17,6 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+
+handler404 = "device.views.error_404_view"
+handler500 = "device.views.error_500_view"
+handler403 = "device.views.error_403_view"
+handler400 = "device.views.error_400_view"
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),

@@ -235,3 +235,19 @@ class RelayRelayGroupAssociationDeleteView(PermissionRequiredMixin, DeleteView):
     )
     success_url = reverse_lazy("relayrelaygroupassociation-list")
     permission_required = "device.delete_relayrelaygroupassociation"
+
+
+def error_404_view(request, exception=None):
+    return render(request, "device/error.html", {'message': "404", "detail": "Not Found"})
+
+
+def error_500_view(request, exception=None):
+    return render(request, "device/error.html", {'message': "500", "detail": "Internal Server Error"})
+
+
+def error_403_view(request, exception=None):
+    return render(request, "device/error.html", {'message': "403", "detail": "Not allowed"})
+
+
+def error_400_view(request, exception=None):
+    return render(request, "device/error.html", {'message': "400", "detail": "Client-side error"})
