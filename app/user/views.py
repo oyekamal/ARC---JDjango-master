@@ -15,10 +15,13 @@ class ChangePasswordView(UpdateView):
     model = User
     form_class = ChangePasswordForm  # Use Django's built-in UserCreationForm
     template_name = "user/password_form.html"
-    success_url = reverse_lazy("user-list")
+    success_url = reverse_lazy("account_login")
+
 
 class CustomPasswordChangeView(PasswordChangeView):
     success_url = reverse_lazy('password_change_success')
+
+
 class CustomLoginView(LoginView):
     def form_valid(self, form):
         # Perform additional logic here
