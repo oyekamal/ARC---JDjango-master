@@ -54,7 +54,7 @@
 
             <!-- List -->
             <li class="dropdown ms-2">
-              <a class="rounded-circle" href="#!" role="button" id="dropdownUser" data-bs-toggle="dropdown"
+              <a class="rounded-circle" href="/" role="button" id="dropdownUser" data-bs-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <div class="avatar avatar-md avatar-indicators avatar-online">
                 {% if user.is_authenticated %}
@@ -102,7 +102,7 @@
       <div class="h-100" data-simplebar style="padding-top: 50px;" >
         <!-- Brand logo -->
         <h3 class="navbar-brand" href="/">
-          <img src="{% static 'images/brand/logo/arc-logo.svg' %}" alt="ARC Master" style="width: 150px; height: 150px; ">
+          <img href="/" src="{% static 'images/brand/logo/arc-logo.svg' %}" alt="ARC Master" style="width: 150px; height: 150px; ">
         </h3>
         <!-- Navbar nav -->
         <ul class="navbar-nav flex-column" id="sideNavbar">
@@ -160,7 +160,7 @@
           </li>
           {% endif %}
           {% endif %}
-
+          {% if user.is_authenticated %}
           <!-- Device -->
           <li class="nav-item">
             <a class="nav-link" href="/devices/">
@@ -198,7 +198,17 @@
               <i data-feather="file-plus" class="nav-icon me-2 icon-xxs"></i>
               Behaviour
             </a>
-          </li>   
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/login/">
+              <i data-feather="file-plus" class="nav-icon me-2 icon-xxs"></i>
+              Login
+            </a>
+          </li>
+          {% endif %}
+
+
         </ul>
 
 
