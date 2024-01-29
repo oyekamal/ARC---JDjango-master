@@ -28,9 +28,9 @@ class CustomUserCreationForm(forms.ModelForm):
                 user.groups.set(groups)
 
         return user
-    
-class ChangePasswordForm(forms.ModelForm):
 
+
+class ChangePasswordForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("password",)

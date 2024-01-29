@@ -19,7 +19,7 @@ class ChangePasswordView(UpdateView):
 
 
 class CustomPasswordChangeView(PasswordChangeView):
-    success_url = reverse_lazy('password_change_success')
+    success_url = reverse_lazy("password_change_success")
 
 
 class CustomLoginView(LoginView):
@@ -27,7 +27,7 @@ class CustomLoginView(LoginView):
         # Perform additional logic here
         if not form.user.is_active:
             # Perform different logic for inactive users
-            return redirect('change_password', pk=form.user.pk)
+            return redirect("change_password", pk=form.user.pk)
         return super().form_valid(form)
 
 

@@ -60,8 +60,7 @@ def publish_message(request):
 
         # Check if 'device_name' is present in device_info
         if "device_name" in device_info:
-            result = client.publish(device_info.get(
-                "device_name"), str(device_info))
+            result = client.publish(device_info.get("device_name"), str(device_info))
             print("---------------- API start ----------------")
             print(device_info)
             print("---------------- API end ------------------")
@@ -109,8 +108,7 @@ class ToggleDeviceView(View):
             relay_group.save()
 
         elif type == "relay_group_association":
-            relay_group_association = RelayRelayGroupAssociation.objects.get(
-                pk=id)
+            relay_group_association = RelayRelayGroupAssociation.objects.get(pk=id)
             relay_group_association.is_on = is_on
             relay_group_association.save()
 
@@ -240,16 +238,26 @@ class RelayRelayGroupAssociationDeleteView(PermissionRequiredMixin, DeleteView):
 
 
 def error_404_view(request, exception=None):
-    return render(request, "device/error.html", {'message': "404", "detail": "Not Found"})
+    return render(
+        request, "device/error.html", {"message": "404", "detail": "Not Found"}
+    )
 
 
 def error_500_view(request, exception=None):
-    return render(request, "device/error.html", {'message': "500", "detail": "Internal Server Error"})
+    return render(
+        request,
+        "device/error.html",
+        {"message": "500", "detail": "Internal Server Error"},
+    )
 
 
 def error_403_view(request, exception=None):
-    return render(request, "device/error.html", {'message': "403", "detail": "Not allowed"})
+    return render(
+        request, "device/error.html", {"message": "403", "detail": "Not allowed"}
+    )
 
 
 def error_400_view(request, exception=None):
-    return render(request, "device/error.html", {'message': "400", "detail": "Client-side error"})
+    return render(
+        request, "device/error.html", {"message": "400", "detail": "Client-side error"}
+    )
