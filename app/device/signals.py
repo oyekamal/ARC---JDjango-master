@@ -4,7 +4,7 @@ from device.mqtt_functions import client
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from .models import Relay, RelayGroup
+from .models import Relay, RelayGroup, Device
 
 
 @receiver(post_save, sender=RelayGroup)
@@ -17,6 +17,19 @@ def update_relays_on_relaygroup_change(sender, instance, **kwargs):
 
     # Get the related Relay instances
     for each_relay in instance.relays.all():
+        each_relay.is_on = instance.is_on
+        each_relay.save()
+
+
+@receiver(post_save, sender=Device)
+def update_relays(sender, instance, **kwargs):
+    print("signals of device")
+    if kwargs.get("created", False):
+        # The RelayGroup instance is being created, no need to update relays.
+        return
+
+    # Get the related Relay instances
+    for each_relay in Relay.objects.filter(device=instance):
         each_relay.is_on = instance.is_on
         each_relay.save()
 
