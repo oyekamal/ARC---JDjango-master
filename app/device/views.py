@@ -80,10 +80,11 @@ def publish_message(request):
         )
 
 
-class DeviceListView(ListView):
+class DeviceListView(PermissionRequiredMixin, ListView):
     model = Device
     template_name = "device/device_list.html"
     context_object_name = "devices"
+    permission_required = "device.view_device"
 
 
 class ToggleDeviceView(View):
@@ -121,10 +122,11 @@ class ToggleDeviceView(View):
         return JsonResponse({"status": "success"})
 
 
-class DeviceDeleteView(DeleteView):
+class DeviceDeleteView(PermissionRequiredMixin, DeleteView):
     model = Device
     template_name = "device/device_confirm_delete.html"
     success_url = reverse_lazy("device-list")
+    permission_required = "device.delete_device"
 
 
 class RelayListView(PermissionRequiredMixin, ListView):
