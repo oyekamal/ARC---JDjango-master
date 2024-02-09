@@ -1,3 +1,9 @@
-from . import mqtt_functions
+import sys
 
-mqtt_functions.client.loop_start()
+if 'runserver' in sys.argv:
+    from . import mqtt_functions
+    mqtt_functions.client.loop_start()
+
+# from . import mqtt_functions
+
+# mqtt_functions.client.loop_start()
