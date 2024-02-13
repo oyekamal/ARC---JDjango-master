@@ -71,7 +71,7 @@ def initialize_gpio():
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
     print("Slave connected to MQTT broker")
-    mqtt.subscribe(device_info["device_name"])
+    mqtt.subscribe(device_info["device_name"]+":" + device_info['ip'])
     result = mqtt.publish("master/slaves", str(device_info))
     if result:
         print("Message published successfully")

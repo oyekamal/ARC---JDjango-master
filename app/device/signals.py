@@ -53,8 +53,9 @@ def update_relays(sender, instance, **kwargs):
         "device_update": False,
     }
     device_info["device_name"] = instance.device.device_name
+    device_info["ip"] = instance.device.device_ip
     device_info["device_update"] = True
     device_info["relay_on_off"][instance.relay_pin] = instance.is_on
-
-    result = client.publish(device_info.get("device_name"), str(device_info))
+    device = device_info["device_name"]+":" + device_info['ip']
+    result = client.publish(device, str(device_info))
     print(f"Updating relays: {instance}")

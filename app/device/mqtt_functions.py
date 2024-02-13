@@ -81,7 +81,8 @@ def on_message(mqtt_client, userdata, msg):
 
     from device.models import Device, Relay
 
-    print(f"Received message on topic: {msg.topic} with payload: {msg.payload}")
+    print(
+        f"Received message on topic: {msg.topic} with payload: {msg.payload}")
     string = msg.payload.decode("utf-8")
     print("--------------data------------------")
     print(string)
@@ -89,7 +90,9 @@ def on_message(mqtt_client, userdata, msg):
     payload = ast.literal_eval(string)
     update_create_device(payload)
     payload["message"] = f"hello  {payload.get('device_name')} im Master."
-    result = mqtt_client.publish(payload.get("device_name"), str(payload))
+    device = payload.get("device_name")+":" + payload.get('ip')
+
+    result = mqtt_client.publish(device, str(payload))
 
 
 client = mqtt.Client()
