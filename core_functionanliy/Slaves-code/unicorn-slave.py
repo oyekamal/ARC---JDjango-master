@@ -1,8 +1,9 @@
-import socket
 import ast
 import platform
 import time
-
+import socket
+import fcntl
+import struct
 from flask import Flask
 from flask_mqtt import Mqtt
 
@@ -12,9 +13,27 @@ import RPi.GPIO as GPIO  # sudo pip install --upgrade RPi.GPIO
 # # Check if the script is running on a Raspberry Pi
 # # ON_RASPBERRY_PI = 'arm' in platform.machine()
 
+
 # # if ON_RASPBERRY_PI:
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(True)
+
+
+def get_ip_address(ifname):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(
+        s.fileno(),
+        0x8915,  # SIOCGIFADDR
+        struct.pack('256s', ifname[:15].encode('utf-8'))
+    )[20:24])
+
+
+def get_mac_address(ifname):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    info = fcntl.ioctl(s.fileno(), 0x8927,  struct.pack(
+        '256s', bytes(ifname[:15], 'utf-8')))
+    return ''.join('%02x' % b for b in info[18:24])
+
 
 app = Flask(__name__)
 app.config["SECRET"] = "my secret key"
@@ -34,12 +53,18 @@ relay_pins = {
 }
 # Define the IP and port you want the app to run on
 
-custom_ip = "127.0.0.12"
+# Assuming eth0 is the interface you're interested in. Change to wlan0 if using WiFi.
+interface_name = 'wlan0'
+ip_address = get_ip_address(interface_name)
+mac_address = get_mac_address(interface_name)
+last_4_mac = mac_address.replace(":", "")[-4:]
+
+custom_ip = ip_address
 custom_port = 8080
 
 device_info = {
     "device_type": "slave",
-    "device_name": "Unicorn-slave",
+    "device_name": f"URC4-{last_4_mac}",
     "extra_info": str(relay_pins),
     "ip": custom_ip,
     "port": custom_port,
