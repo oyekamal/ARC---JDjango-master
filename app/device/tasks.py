@@ -52,6 +52,7 @@ def task_name():
                 "device_update": False,
             }
             device_info["device_name"] = relay.device.device_name
+            device_info["ip"] = relay.device.device_ip
             device_info["device_update"] = True
             device_info["relay_on_off"][relay.relay_pin] = True
             mqtt_request(device_info)
