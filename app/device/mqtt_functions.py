@@ -64,7 +64,10 @@ def on_connect(mqtt_client, userdata, flags, rc):
     if rc == 0:
         print("Connected successfully")
         #    mqtt_client.subscribe('django/mqtt')
-        mqtt_client.subscribe("master/slaves")
+        # Only the designated master client will subscribe to the topic
+        if userdata['is_master']:
+            mqtt_client.subscribe("master/slaves", qos=2)
+
     else:
         print("Bad connection. Code:", rc)
 
@@ -95,7 +98,13 @@ def on_message(mqtt_client, userdata, msg):
     result = mqtt_client.publish(device, str(payload))
 
 
-client = mqtt.Client()
+# Assuming you have a way to determine whether the current client is the master
+# Replace with actual logic to identify master
+master_client_info = {'is_master': True}
+
+client = mqtt.Client(userdata=master_client_info)
+
+print(" sys.argv :", sys.argv)
 
 if "runserver" in sys.argv:
     client.on_connect = on_connect
