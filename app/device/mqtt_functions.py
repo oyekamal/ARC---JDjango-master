@@ -84,8 +84,7 @@ def on_message(mqtt_client, userdata, msg):
 
     from device.models import Device, Relay
 
-    print(
-        f"Received message on topic: {msg.topic} with payload: {msg.payload}")
+    print(f"Received message on topic: {msg.topic} with payload: {msg.payload}")
     string = msg.payload.decode("utf-8")
     print("--------------data------------------")
     print(string)
@@ -93,14 +92,14 @@ def on_message(mqtt_client, userdata, msg):
     payload = ast.literal_eval(string)
     update_create_device(payload)
     payload["message"] = f"hello  {payload.get('device_name')} im Master."
-    device = payload.get("device_name")+":" + payload.get('ip')
+    device = payload.get("device_name") + ":" + payload.get("ip")
 
     result = mqtt_client.publish(device, str(payload))
 
 
 # Assuming you have a way to determine whether the current client is the master
 # Replace with actual logic to identify master
-master_client_info = {'is_master': True}
+master_client_info = {"is_master": True}
 
 # client = mqtt.Client(userdata=master_client_info)
 client = mqtt.Client()
@@ -109,7 +108,7 @@ client = mqtt.Client()
 print(" sys.argv :", sys.argv)
 
 if "runserver" in sys.argv:
-    
+
     client.on_connect = on_connect
 else:
     client.on_connect = off_connect

@@ -37,12 +37,12 @@ def update_relays(sender, instance, **kwargs):
 def update_relays(sender, instance, **kwargs):
     print("signals of relay")
     # Check if the instance is being updated (not created)
-    if not kwargs.get('created', False):
+    if not kwargs.get("created", False):
         # Get the original instance from the database
         orig = Relay.objects.filter(pk=instance.pk)
         if orig:
             orig = orig[0]
-            print(orig.is_on,  "   !=   ", instance.is_on)
+            print(orig.is_on, "   !=   ", instance.is_on)
             # Compare the original is_on value with the current instance's is_on value
             if orig.is_on != instance.is_on:
                 # The is_on field has changed, proceed with your logic
@@ -62,6 +62,6 @@ def update_relays(sender, instance, **kwargs):
                 device_info["ip"] = instance.device.device_ip
                 device_info["device_update"] = True
                 device_info["relay_on_off"][instance.relay_pin] = instance.is_on
-                device = device_info["device_name"]+":" + device_info['ip']
+                device = device_info["device_name"] + ":" + device_info["ip"]
                 result = client.publish(device, str(device_info))
                 print(f"Updating relays: {instance}")

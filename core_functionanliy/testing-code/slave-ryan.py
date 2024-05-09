@@ -13,20 +13,24 @@ from flask_mqtt import Mqtt
 
 def get_ip_address(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    return socket.inet_ntoa(fcntl.ioctl(
-        s.fileno(),
-        0x8915,  # SIOCGIFADDR
-        struct.pack('256s', ifname[:15].encode('utf-8'))
-    )[20:24])
+    return socket.inet_ntoa(
+        fcntl.ioctl(
+            s.fileno(),
+            0x8915,  # SIOCGIFADDR
+            struct.pack("256s", ifname[:15].encode("utf-8")),
+        )[20:24]
+    )
+
 
 # Function to get the MAC address of a network interface
 
 
 def get_mac_address(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    info = fcntl.ioctl(s.fileno(), 0x8927,  struct.pack(
-        '256s', bytes(ifname[:15], 'utf-8')))
-    return ''.join('%02x' % b for b in info[18:24])
+    info = fcntl.ioctl(
+        s.fileno(), 0x8927, struct.pack("256s", bytes(ifname[:15], "utf-8"))
+    )
+    return "".join("%02x" % b for b in info[18:24])
 
 
 # Setup GPIO
@@ -45,7 +49,7 @@ app.config["MQTT_TLS_ENABLED"] = False
 mqtt = Mqtt(app)
 
 # Assuming eth0 is the interface you're interested in. Change to wlan0 if using WiFi.
-interface_name = 'wlan0'
+interface_name = "wlan0"
 ip_address = get_ip_address(interface_name)
 mac_address = get_mac_address(interface_name)
 last_4_mac = mac_address.replace(":", "")[-4:]

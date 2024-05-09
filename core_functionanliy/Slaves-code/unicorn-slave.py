@@ -21,18 +21,21 @@ GPIO.setwarnings(True)
 
 def get_ip_address(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    return socket.inet_ntoa(fcntl.ioctl(
-        s.fileno(),
-        0x8915,  # SIOCGIFADDR
-        struct.pack('256s', ifname[:15].encode('utf-8'))
-    )[20:24])
+    return socket.inet_ntoa(
+        fcntl.ioctl(
+            s.fileno(),
+            0x8915,  # SIOCGIFADDR
+            struct.pack("256s", ifname[:15].encode("utf-8")),
+        )[20:24]
+    )
 
 
 def get_mac_address(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    info = fcntl.ioctl(s.fileno(), 0x8927,  struct.pack(
-        '256s', bytes(ifname[:15], 'utf-8')))
-    return ''.join('%02x' % b for b in info[18:24])
+    info = fcntl.ioctl(
+        s.fileno(), 0x8927, struct.pack("256s", bytes(ifname[:15], "utf-8"))
+    )
+    return "".join("%02x" % b for b in info[18:24])
 
 
 app = Flask(__name__)
@@ -46,15 +49,15 @@ app.config["MQTT_KEEPALIVE"] = 5
 app.config["MQTT_TLS_ENABLED"] = False
 mqtt = Mqtt(app)
 relay_pins = {
-    1: {True: 21, False: 20, "color": "red"},    # Relay 1
-    2: {True: 16, False: 12, "color": "blue"},   # Relay 2
-    3: {True: 7, False: 8, "color": "green"},    # Relay 3
-    4: {True: 25, False: 24, "color": "purple"}  # Relay 4
+    1: {True: 21, False: 20, "color": "red"},  # Relay 1
+    2: {True: 16, False: 12, "color": "blue"},  # Relay 2
+    3: {True: 7, False: 8, "color": "green"},  # Relay 3
+    4: {True: 25, False: 24, "color": "purple"},  # Relay 4
 }
 # Define the IP and port you want the app to run on
 
 # Assuming eth0 is the interface you're interested in. Change to wlan0 if using WiFi.
-interface_name = 'wlan0'
+interface_name = "wlan0"
 ip_address = get_ip_address(interface_name)
 mac_address = get_mac_address(interface_name)
 last_4_mac = mac_address.replace(":", "")[-4:]
@@ -96,7 +99,7 @@ def initialize_gpio():
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
     print("Slave connected to MQTT broker")
-    mqtt.subscribe(device_info["device_name"]+":" + device_info['ip'])
+    mqtt.subscribe(device_info["device_name"] + ":" + device_info["ip"])
     result = mqtt.publish("master/slaves", str(device_info))
     if result:
         print("Message published successfully")

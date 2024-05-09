@@ -16,14 +16,16 @@ class MqttSingleton:
         return cls._instance
 
     def __init__(self):
-        if not hasattr(self.__class__, '_instance'):
-            self._client = mqtt.Client(userdata={'is_master': True})
+        if not hasattr(self.__class__, "_instance"):
+            self._client = mqtt.Client(userdata={"is_master": True})
             self._client.on_connect = self.on_connect
             self._client.on_message = self.on_message
-            self._client.username_pw_set(
-                settings.MQTT_USER, settings.MQTT_PASSWORD)
+            self._client.username_pw_set(settings.MQTT_USER, settings.MQTT_PASSWORD)
             self._client.connect(
-                host=settings.MQTT_SERVER, port=settings.MQTT_PORT, keepalive=settings.MQTT_KEEPALIVE)
+                host=settings.MQTT_SERVER,
+                port=settings.MQTT_PORT,
+                keepalive=settings.MQTT_KEEPALIVE,
+            )
             self._client.loop_start()
             print("Starting MQTT server...")
 
@@ -38,7 +40,7 @@ class MqttSingleton:
             print("Connected successfully")
             #    mqtt_client.subscribe('django/mqtt')
             # Only the designated master client will subscribe to the topic
-            if userdata['is_master']:
+            if userdata["is_master"]:
                 mqtt_client.subscribe("master/slaves", qos=2)
 
         else:
@@ -50,8 +52,7 @@ class MqttSingleton:
 
         from device.models import Device, Relay
 
-        print(
-            f"Received message on topic: {msg.topic} with payload: {msg.payload}")
+        print(f"Received message on topic: {msg.topic} with payload: {msg.payload}")
         string = msg.payload.decode("utf-8")
         print("--------------data------------------")
         print(string)
@@ -59,7 +60,7 @@ class MqttSingleton:
         payload = ast.literal_eval(string)
         update_create_device(payload)
         payload["message"] = f"hello  {payload.get('device_name')} im Master."
-        device = payload.get("device_name")+":" + payload.get('ip')
+        device = payload.get("device_name") + ":" + payload.get("ip")
 
         result = mqtt_client.publish(device, str(payload))
 

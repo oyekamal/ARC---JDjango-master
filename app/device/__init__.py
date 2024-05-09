@@ -1,9 +1,10 @@
 import sys
 
 
-if 'runserver' in sys.argv and 'manage.py' in sys.argv:
+if "runserver" in sys.argv and "manage.py" in sys.argv:
     print("Starting.. MQtt server")
     from . import mqtt_functions
+
     mqtt_functions.client.loop_start()
 
 

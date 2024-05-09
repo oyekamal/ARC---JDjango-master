@@ -10,13 +10,17 @@ GPIO.setwarnings(False)
 # Define pins
 button_pin = 27  # Button pin
 relay_pins = [
-    {"on": 21, "off": 20, "color": "red"},    # Relay 1
-    {"on": 16, "off": 12, "color": "blue"},   # Relay 2
-    {"on": 7, "off": 8, "color": "green"},    # Relay 3
-    {"on": 25, "off": 24, "color": "purple"}  # Relay 4
+    {"on": 21, "off": 20, "color": "red"},  # Relay 1
+    {"on": 16, "off": 12, "color": "blue"},  # Relay 2
+    {"on": 7, "off": 8, "color": "green"},  # Relay 3
+    {"on": 25, "off": 24, "color": "purple"},  # Relay 4
 ]
-led_pins = {"red": 26, "green": 19, "blue": 13,
-            "white": 22}  # Add white LED pin for flashing
+led_pins = {
+    "red": 26,
+    "green": 19,
+    "blue": 13,
+    "white": 22,
+}  # Add white LED pin for flashing
 
 # Setup button and LED pins
 GPIO.setup(button_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -31,6 +35,7 @@ for color, pin in led_pins.items():
 def leds_off():
     for color in led_pins:
         led_pins[color].ChangeDutyCycle(0)
+
 
 # Function to set LED color, including white for flashing
 
@@ -60,6 +65,7 @@ def toggle_docker_state():
         subprocess.call(["docker", "start", "your_container_name"])
         print("Docker instance enabled.")
 
+
 # Function to check button hold time and toggle Docker state if held for 30 seconds
 
 
@@ -70,7 +76,9 @@ def check_button_hold():
             if button_pressed_time is None:
                 button_pressed_time = time.time()
             else:
-                if (time.time() - button_pressed_time) >= 30:  # Button held for 30 seconds
+                if (
+                    time.time() - button_pressed_time
+                ) >= 30:  # Button held for 30 seconds
                     set_led_color("white", 50)  # Flash white LED
                     toggle_docker_state()
                     break

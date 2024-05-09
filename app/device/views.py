@@ -60,7 +60,7 @@ def publish_message(request):
 
         # Check if 'device_name' is present in device_info
         if "device_name" in device_info:
-            device = device_info.get("device_name")+":" + device_info.get('ip')
+            device = device_info.get("device_name") + ":" + device_info.get("ip")
 
             result = client.publish(device, str(device_info))
             print("---------------- API start ----------------")
@@ -110,8 +110,7 @@ class ToggleDeviceView(View):
             relay_group.save()
 
         elif type == "relay_group_association":
-            relay_group_association = RelayRelayGroupAssociation.objects.get(
-                pk=id)
+            relay_group_association = RelayRelayGroupAssociation.objects.get(pk=id)
             relay_group_association.is_on = is_on
             relay_group_association.save()
 
@@ -256,13 +255,11 @@ def error_500_view(request, exception=None):
 
 def error_403_view(request, exception=None):
     return render(
-        request, "device/error.html", {"message": "403",
-                                       "detail": "Not allowed"}
+        request, "device/error.html", {"message": "403", "detail": "Not allowed"}
     )
 
 
 def error_400_view(request, exception=None):
     return render(
-        request, "device/error.html", {"message": "400",
-                                       "detail": "Client-side error"}
+        request, "device/error.html", {"message": "400", "detail": "Client-side error"}
     )
