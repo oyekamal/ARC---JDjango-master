@@ -4,7 +4,14 @@ import datetime as dt
 from django import forms
 from django.forms import Select
 
-from .models import Relay, RelayGroup, RelayRelayGroupAssociation, RelaySchedule, Rule
+from .models import (
+    Relay,
+    RelayGroup,
+    RelayRelayGroupAssociation,
+    RelaySchedule,
+    Rule,
+    RelayRelayAssociation,
+)
 
 from django.forms import CheckboxSelectMultiple
 
@@ -60,3 +67,9 @@ class RelayRelayGroupAssociationBehaviourForm(forms.ModelForm):
     class Meta:
         model = RelayRelayGroupAssociation
         fields = ["relay_group", "is_on"]
+
+
+class RelayRelayAssociationBehaviourForm(forms.ModelForm):
+    class Meta:
+        model = RelayRelayAssociation
+        fields = ["relay_target", "is_on"]

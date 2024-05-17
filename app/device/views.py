@@ -21,6 +21,7 @@ from .forms import (
     RelayScheduleForm,
     RuleForm,
     RelayRelayGroupAssociationBehaviourForm,
+    RelayRelayAssociationBehaviourForm,
 )
 from .models import Device, Relay, RelayGroup, RelayRelayGroupAssociation, RelaySchedule
 from .mqtt_functions import client
@@ -43,6 +44,10 @@ def save_schedule_and_group(form_list):
 def save_schedule_and_relay(form_list):
     print("save schedule and relay")
     print(form_list)
+    relay_schedule = form_list[1].save()
+    relay_relay = form_list[2].save(commit=False)
+    relay_relay.relay = relay_schedule.relay
+    relay_relay.save()
 
 
 def show_schedule(wizard):
@@ -55,11 +60,25 @@ def show_schedule_group(wizard):
     return clean_data.get("event") == "Schedule" and clean_data.get("target") == "Group"
 
 
+def show_schedule_relay(wizard):
+    clean_data = wizard.get_cleaned_data_for_step("0") or {}
+    return clean_data.get("event") == "Schedule" and clean_data.get("target") == "Relay"
+
+
 # Create your views here.
 class BehaviourView(SessionWizardView):
-    form_list = [RuleForm, RelayScheduleForm, RelayRelayGroupAssociationBehaviourForm]
+    form_list = [
+        RuleForm,
+        RelayScheduleForm,
+        RelayRelayGroupAssociationBehaviourForm,
+        RelayRelayAssociationBehaviourForm,
+    ]
     template_name = "behaviour/index.html"
-    condition_dict = {"1": show_schedule, "2": show_schedule_group}
+    condition_dict = {
+        "1": show_schedule,
+        "2": show_schedule_group,
+        "3": show_schedule_relay,
+    }
 
     def done(self, form_list, **kwargs):
         print(form_list)
