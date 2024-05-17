@@ -1,13 +1,29 @@
 from django.contrib import admin
 
 from .models import (
+    Rule,
     Device,
     Relay,
     RelayGroup,
     RelayRelayGroupAssociation,
+    RelayRelayAssociation,
     RelaySchedule,
-    Rule,
 )
+
+
+@admin.register(Rule)
+class RuleAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "if_when",
+        "event",
+        "action",
+        "target",
+        "created_at",
+        "updated_at",
+    )
+    list_filter = ("created_at", "updated_at")
+    date_hierarchy = "created_at"
 
 
 @admin.register(Device)
@@ -70,6 +86,26 @@ class RelayRelayGroupAssociationAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
 
 
+@admin.register(RelayRelayAssociation)
+class RelayRelayAssociationAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "relay",
+        "relay_target",
+        "is_on",
+        "created_at",
+        "updated_at",
+    )
+    list_filter = (
+        "relay",
+        "relay_target",
+        "is_on",
+        "created_at",
+        "updated_at",
+    )
+    date_hierarchy = "created_at"
+
+
 @admin.register(RelaySchedule)
 class RelayScheduleAdmin(admin.ModelAdmin):
     list_display = (
@@ -82,19 +118,4 @@ class RelayScheduleAdmin(admin.ModelAdmin):
         "updated_at",
     )
     list_filter = ("relay", "is_on", "created_at", "updated_at")
-    date_hierarchy = "created_at"
-
-
-@admin.register(Rule)
-class RuleAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "if_when",
-        "event",
-        "action",
-        "target",
-        "created_at",
-        "updated_at",
-    )
-    list_filter = ("created_at", "updated_at")
     date_hierarchy = "created_at"
