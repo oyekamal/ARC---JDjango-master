@@ -29,7 +29,8 @@ from .mqtt_functions import client
 from .serializers import DeviceSerializer, RelayGroupSerializer, RelaySerializer
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
 from formtools.wizard.views import SessionWizardView
 
@@ -140,7 +141,7 @@ class BehaviourView(SessionWizardView):
             # add relay to Group
             save_relay_group(form_list)
 
-        return HttpResponse("done Booking")
+        return HttpResponseRedirect(reverse('home'))
 
 
 def home(request):
