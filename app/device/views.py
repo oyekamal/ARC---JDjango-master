@@ -22,6 +22,7 @@ from .forms import (
     RuleForm,
     RelayRelayGroupAssociationBehaviourForm,
     RelayRelayAssociationBehaviourForm,
+    RelayRelayAssociationForm,
 )
 from .models import Device, Relay, RelayGroup, RelayRelayGroupAssociation, RelaySchedule
 from .mqtt_functions import client
@@ -50,6 +51,16 @@ def save_schedule_and_relay(form_list):
     relay_relay.save()
 
 
+def save_relay_relay(form_list):
+    print("save relay and relay")
+    form_list[1].save()
+
+
+def save_relay_group(form_list):
+    print("save relay and group")
+    form_list[1].save()
+
+
 def show_schedule(wizard):
     clean_data = wizard.get_cleaned_data_for_step("0") or {}
     return clean_data.get("event") == "Schedule"
@@ -65,6 +76,22 @@ def show_schedule_relay(wizard):
     return clean_data.get("event") == "Schedule" and clean_data.get("target") == "Relay"
 
 
+def show_relay_relay(wizard):
+    clean_data = wizard.get_cleaned_data_for_step("0") or {}
+    return (
+        clean_data.get("event") == "Relay State Change"
+        and clean_data.get("target") == "Relay"
+    )
+
+
+def show_relay_Group(wizard):
+    clean_data = wizard.get_cleaned_data_for_step("0") or {}
+    return (
+        clean_data.get("event") == "Relay State Change"
+        and clean_data.get("target") == "Group"
+    )
+
+
 # Create your views here.
 class BehaviourView(SessionWizardView):
     form_list = [
@@ -72,12 +99,16 @@ class BehaviourView(SessionWizardView):
         RelayScheduleForm,
         RelayRelayGroupAssociationBehaviourForm,
         RelayRelayAssociationBehaviourForm,
+        RelayRelayAssociationForm,
+        RelayRelayGroupAssociationForm,
     ]
     template_name = "behaviour/index.html"
     condition_dict = {
         "1": show_schedule,
         "2": show_schedule_group,
         "3": show_schedule_relay,
+        "4": show_relay_relay,
+        "5": show_relay_Group,
     }
 
     def done(self, form_list, **kwargs):
@@ -98,18 +129,16 @@ class BehaviourView(SessionWizardView):
             save_schedule_and_relay(form_list)
         elif (
             rule.cleaned_data.get("event") == "Relay State Change"
-            and rule.cleaned_data.get("target") == "Group"
-        ):
-            # add relay to relay group
-            pass
-            # save_schedule_and_group(form_list)
-        elif (
-            rule.cleaned_data.get("event") == "Relay State Change"
             and rule.cleaned_data.get("target") == "Relay"
         ):
             # add relay to relay
-            pass
-            # save_schedule_and_relay(form_list)
+            save_relay_relay(form_list)
+        elif (
+            rule.cleaned_data.get("event") == "Relay State Change"
+            and rule.cleaned_data.get("target") == "Group"
+        ):
+            # add relay to Group
+            save_relay_group(form_list)
 
         return HttpResponse("done Booking")
 

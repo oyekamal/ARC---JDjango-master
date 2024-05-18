@@ -73,3 +73,9 @@ class RelayRelayAssociationBehaviourForm(forms.ModelForm):
     class Meta:
         model = RelayRelayAssociation
         fields = ["relay_target", "is_on"]
+
+
+class RelayRelayAssociationForm(forms.ModelForm):
+    class Meta:
+        model = RelayRelayAssociation
+        fields = ["relay", "relay_target", "is_on"]
