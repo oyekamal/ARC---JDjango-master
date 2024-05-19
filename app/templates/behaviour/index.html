@@ -17,9 +17,9 @@
         {% endif %}
         </table>
     {% if wizard.steps.prev %}
-        <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "first step" %}</button>
-        <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
+        <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "First step" %}</button>
+        <button class="btn btn-secondary" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "Prev step" %}</button>
     {% endif %}
-        <input type="submit" value="{% translate "submit" %}"/>
+        <input class="btn btn-primary" type="submit" value="{% translate "submit" %}"/>
     </form>
 {% endblock %}
