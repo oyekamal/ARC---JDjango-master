@@ -46,25 +46,8 @@ class MqttSingleton:
         else:
             print("Bad connection. Code:", rc)
 
-    def on_message(self, mqtt_client, userdata, msg):
-        # ... your existing on_message code ...
-        import ast
-
-        from device.models import Device, Relay
-
-        print(f"Received message on topic: {msg.topic} with payload: {msg.payload}")
-        string = msg.payload.decode("utf-8")
-        print("--------------data------------------")
-        print(string)
-        print("---------------enddata-----------------")
-        payload = ast.literal_eval(string)
-        update_create_device(payload)
-        payload["message"] = f"hello  {payload.get('device_name')} im Master."
-        device = payload.get("device_name") + ":" + payload.get("ip")
-
-        result = mqtt_client.publish(device, str(payload))
-
     # Move the update_create_device function into this class
+    @classmethod
     def update_create_device(self, payload):
         # ... your existing update_create_device code ...
         from device.models import Device, Relay
@@ -120,3 +103,21 @@ class MqttSingleton:
                             device=new_device,
                         )
                         new_relay.save()
+
+    def on_message(self, mqtt_client, userdata, msg):
+        # ... your existing on_message code ...
+        import ast
+
+        from device.models import Device, Relay
+
+        print(f"Received message on topic: {msg.topic} with payload: {msg.payload}")
+        string = msg.payload.decode("utf-8")
+        print("--------------data------------------")
+        print(string)
+        print("---------------enddata-----------------")
+        payload = ast.literal_eval(string)
+        MqttSingleton.update_create_device(payload)
+        payload["message"] = f"hello  {payload.get('device_name')} im Master."
+        device = payload.get("device_name") + ":" + payload.get("ip")
+
+        result = mqtt_client.publish(device, str(payload))

@@ -141,7 +141,7 @@ class BehaviourView(SessionWizardView):
             # add relay to Group
             save_relay_group(form_list)
 
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse("home"))
 
 
 def home(request):
