@@ -5,6 +5,7 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
 from .models import Relay, RelayGroup, Device
+from django.conf import settings
 
 
 @receiver(post_save, sender=RelayGroup)
@@ -47,17 +48,7 @@ def update_relays(sender, instance, **kwargs):
             if orig.is_on != instance.is_on:
                 # The is_on field has changed, proceed with your logic
                 print("is_on has changed, updating")
-                device_info = {
-                    "device_type": "slave",
-                    "device_name": "",
-                    "extra_info": "",
-                    "ip": "",
-                    "port": "",
-                    "RELAY_PINS": {},
-                    "relay_on_off": {},
-                    "message": "Update relay",
-                    "device_update": False,
-                }
+                device_info = settings.DEVICE_MESSAGE
                 device_info["device_name"] = instance.device.device_name
                 device_info["ip"] = instance.device.device_ip
                 device_info["device_update"] = True

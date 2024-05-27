@@ -40,17 +40,7 @@ def task_name():
             relay.is_on = True
             relay.save()
             print("updated  relay to on ")
-            device_info = {
-                "device_type": "slave",
-                "device_name": "",
-                "extra_info": "",
-                "ip": "",
-                "port": "",
-                "RELAY_PINS": {},
-                "relay_on_off": {},
-                "message": "Update relay",
-                "device_update": False,
-            }
+            device_info = settings.DEVICE_MESSAGE
             device_info["device_name"] = relay.device.device_name
             device_info["ip"] = relay.device.device_ip
             device_info["device_update"] = True

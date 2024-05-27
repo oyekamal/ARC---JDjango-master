@@ -218,3 +218,16 @@ TEMPLATE_DIRS = (
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+DEVICE_MESSAGE = {
+    "device_type": "",
+    "device_name": "",
+    "extra_info": "",
+    "ip": "",
+    "port": "",
+    "RELAY_PINS": {},
+    "relay_on_off": {},
+    "message": "Update relay",
+    "device_update": False,
+}
