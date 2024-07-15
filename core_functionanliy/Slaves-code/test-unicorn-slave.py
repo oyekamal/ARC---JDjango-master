@@ -73,7 +73,8 @@ custom_port = 8080
 
 device_info = {
     "device_type": "slave",
-    "device_name": f"URC4-{last_4_mac}",
+    # "device_name": f"URC4-{last_4_mac}",
+    "device_name": f"Hello_World",
     "extra_info": str(relay_pins),
     "ip": custom_ip,
     "port": custom_port,
