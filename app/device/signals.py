@@ -34,7 +34,7 @@ def update_relays(sender, instance, **kwargs):
         each_relay.save()
 
 
-@receiver(pre_save, sender=Relay)
+@receiver(post_save, sender=Relay)
 def update_relays(sender, instance, **kwargs):
     print("signals of relay")
     # Check if the instance is being updated (not created)

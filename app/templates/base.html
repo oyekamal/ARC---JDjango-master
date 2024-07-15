@@ -102,7 +102,7 @@
       <div class="h-100" data-simplebar style="padding-top: 50px;" >
         <!-- Brand logo -->
         <h3 class="navbar-brand" href="/">
-          <img href="/" src="{% static 'images/brand/logo/arc-logo.svg' %}" alt="ARC Master" style="width: 150px; height: 150px; ">
+          <img href="/" src="{% static 'images/brand/logo/arc_logo.svg' %}" alt="ARC Master" style="width: 200px; height: 150px; ">
         </h3>
         <!-- Navbar nav -->
         <ul class="navbar-nav flex-column" id="sideNavbar">
@@ -193,12 +193,12 @@
             </a>
           </li>           
           <!-- relayrelaygroupassociations -->
-          <li class="nav-item">
+          {% comment %} <li class="nav-item">
             <a class="nav-link" href="/relayrelaygroupassociations/">
               <i data-feather="file-plus" class="nav-icon me-2 icon-xxs"></i>
               Relay Attachments to Groups
             </a>
-          </li>
+          </li> {% endcomment %}
           <li class="nav-item">
             <a class="nav-link" href="/behaviour/">
               <i data-feather="file-plus" class="nav-icon me-2 icon-xxs"></i>
