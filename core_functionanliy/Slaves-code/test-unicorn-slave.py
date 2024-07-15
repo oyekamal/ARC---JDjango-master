@@ -76,7 +76,7 @@ device_info = {
     # "device_name": f"URC4-{last_4_mac}",
     "device_name": f"Hello_World",
     "extra_info": str(relay_pins),
-    "ip": custom_ip,
+    "ip": "custom_ip",
     "port": custom_port,
     "RELAY_PINS": {
         1: 1,  # {"on": 21, "off": 20, "color": "red"},    # Relay 1
