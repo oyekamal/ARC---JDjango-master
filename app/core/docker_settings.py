@@ -89,7 +89,9 @@ LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 # MQTT Configuration
-MQTT_SERVER = "broker.hivemq.com"
+# MQTT_SERVER = "broker.hivemq.com"
+# MQTT_SERVER = "test.mosquitto.org"
+MQTT_SERVER = "mqtt.eclipseprojects.io"
 MQTT_PORT = 1883
 MQTT_KEEPALIVE = 60
 MQTT_USER = ""
