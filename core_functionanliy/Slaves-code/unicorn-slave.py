@@ -117,8 +117,8 @@ def handle_message(client, userdata, message):
     if payload["device_update"] and payload["relay_on_off"]:
         print(payload["relay_on_off"])
         for key, value in payload["relay_on_off"].items():
-            print("sending request to pin", key)
-            print("with value : ", value)
+            # print("sending request to pin", key)
+            # print("with value : ", value)
             pin = relay_pins[key][value]
 
             GPIO.setup(pin, GPIO.OUT)
@@ -141,5 +141,5 @@ def index():
 
 
 if __name__ == "__main__":
-    initialize_gpio()
+    # initialize_gpio()
     app.run(host=custom_ip, port=custom_port, debug=True)

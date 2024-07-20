@@ -45,7 +45,7 @@ def get_mac_address(ifname):
 
 
 app = Flask(__name__)
-app.config['MQTT_BROKER_URL'] = 'mqtt://127.0.0.1:1883'
+# app.config['MQTT_BROKER_URL'] = 'mqtt://127.0.0.1:1883'
 app.config["SECRET"] = "my secret key"
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["MQTT_BROKER_URL"] = "broker.hivemq.com"

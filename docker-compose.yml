@@ -28,53 +28,53 @@ services:
     env_file:
       - ./.env.prod.db
 
-  celery-worker:
-    container_name: celery-worker
-    depends_on:
-      - db
-      - redis
-    build:
-      context: ./app
-      dockerfile: Dockerfile.prod
-    command: bash -c "celery -A core.celery worker -l info"  # Updated command
-    volumes:
-      - static_volume:/usr/src/app/staticfiles
-      - media_volume:/usr/src/app/media
-    env_file:
-      - ./.env.prod
+  # celery-worker:
+  #   container_name: celery-worker
+  #   depends_on:
+  #     - db
+  #     - redis
+  #   build:
+  #     context: ./app
+  #     dockerfile: Dockerfile.prod
+  #   command: bash -c "celery -A core.celery worker -l info"  # Updated command
+  #   volumes:
+  #     - static_volume:/usr/src/app/staticfiles
+  #     - media_volume:/usr/src/app/media
+  #   env_file:
+  #     - ./.env.prod
 
 
-  celery-beat:
-    container_name: celery-beat
-    depends_on:
-      - db
-      - redis
-    build:
-      context: ./app
-      dockerfile: Dockerfile.prod
-    command: bash -c "celery -A core beat -l info"  # Updated command
-    volumes:
-      - static_volume:/usr/src/app/staticfiles
-      - media_volume:/usr/src/app/media
-    env_file:
-      - ./.env.prod
+  # celery-beat:
+  #   container_name: celery-beat
+  #   depends_on:
+  #     - db
+  #     - redis
+  #   build:
+  #     context: ./app
+  #     dockerfile: Dockerfile.prod
+  #   command: bash -c "celery -A core beat -l info"  # Updated command
+  #   volumes:
+  #     - static_volume:/usr/src/app/staticfiles
+  #     - media_volume:/usr/src/app/media
+  #   env_file:
+  #     - ./.env.prod
 
   mqtt:
     image: eclipse-mosquitto
     ports:
       - 1883:1883
 
-  nginx:
-    build: ./nginx
-    volumes:
-      - static_volume:/usr/src/app/staticfiles
-      - media_volume:/usr/src/app/media
-    ports:
-      - 80:80
-      - 443:443
-    depends_on:
-      - web
-    restart: always
+  # nginx:
+  #   build: ./nginx
+  #   volumes:
+  #     - static_volume:/usr/src/app/staticfiles
+  #     - media_volume:/usr/src/app/media
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   depends_on:
+  #     - web
+  #   restart: always
 
   redis:  # Define the Redis service
     image: redis

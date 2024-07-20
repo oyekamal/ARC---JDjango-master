@@ -34,7 +34,7 @@ def update_relays(sender, instance, **kwargs):
         each_relay.save()
 
 
-@receiver(post_save, sender=Relay)
+@receiver(pre_save, sender=Relay)
 def update_relays(sender, instance, **kwargs):
     print("signals of relay")
     # Check if the instance is being updated (not created)
@@ -52,7 +52,7 @@ def update_relays(sender, instance, **kwargs):
                 device_info["device_name"] = instance.device.device_name
                 device_info["ip"] = instance.device.device_ip
                 device_info["device_update"] = True
-                device_info["relay_on_off"][instance.relay_pin] = instance.is_on
+                device_info["relay_on_off"] = {instance.relay_pin: instance.is_on}
                 device = device_info["device_name"] + ":" + device_info["ip"]
                 result = client.publish(device, str(device_info))
                 print(f"Updating relays: {instance}")
