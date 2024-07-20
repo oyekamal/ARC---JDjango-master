@@ -14,7 +14,7 @@ services:
     env_file:
       - ./.env.prod
     depends_on:
-      # - mqtt
+      - mqtt
       - db
       - redis  # Add dependency on the Redis service
     ports:
@@ -59,10 +59,10 @@ services:
     env_file:
       - ./.env.prod
 
-  # mqtt:
-  #   image: eclipse-mosquitto
-  #   ports:
-  #     - 1883:1883
+  mqtt:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
 
   nginx:
     build: ./nginx
