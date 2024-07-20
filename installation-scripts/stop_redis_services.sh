@@ -8,7 +8,7 @@ stop_service() {
 }
 
 # Stop Redis
-# stop_service redis
+stop_service redis
 
 # Stop MQTT
-stop_service mosquitto
+# stop_service mosquitto
