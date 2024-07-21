@@ -52,7 +52,7 @@ mqtt = Mqtt(app)
 relay_pins = {
     1: {True: 21, False: 20, "color": "red"},  # Relay 1
     2: {True: 16, False: 12, "color": "blue"},  # Relay 2
-    3: {True: 7, False: 8, "color": "green"},  # Relay 3
+    3: {True: 7, False: 15, "color": "green"},  # Relay 3
     4: {True: 25, False: 24, "color": "purple"},  # Relay 4
 }
 # Define the IP and port you want the app to run on
@@ -68,7 +68,7 @@ custom_port = 8080
 
 device_info = {
     "device_type": "slave",
-    "device_name": f"URC4-{last_4_mac}",
+    "device_name": f"URC-firmware-{last_4_mac}",
     "extra_info": str(relay_pins),
     "ip": custom_ip,
     "port": custom_port,
