@@ -243,7 +243,7 @@ def button_handler():
                 current_relay_index = (current_relay_index + 1) % len(relay_pins)
 
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     # Start button handler in a separate thread
     button_thread = threading.Thread(target=button_handler)
     button_thread.daemon = True
