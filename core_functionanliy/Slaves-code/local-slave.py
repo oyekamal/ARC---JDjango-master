@@ -33,6 +33,25 @@ def get_ip_address(ifname):
         return "127.0.0.1"
 
 
+def find_available_port(start=5000, end=5100):
+    """
+    Find an available port within the given range.
+
+    :param start: Start of port range
+    :param end: End of port range
+    :return: Available port
+    """
+    for port in range(start, end):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                # Attempt to bind to the port
+                s.bind(("localhost", port))
+                return port
+            except OSError:
+                pass  # Port is in use, continue to next port
+    return None  # No available ports found
+
+
 def get_mac_address(ifname):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -72,7 +91,9 @@ mac_address = get_mac_address(interface_name)
 last_4_mac = mac_address.replace(":", "")[-4:]
 
 custom_ip = ip_address
-custom_port = 8080
+# custom_port = 8080
+custom_port = find_available_port()
+
 
 device_info = {
     "device_type": "slave",

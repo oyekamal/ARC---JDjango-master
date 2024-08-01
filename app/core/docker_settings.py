@@ -109,7 +109,7 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 CELERY_BEAT_SCHEDULE = {
     "task-name": {
         "task": "device.tasks.task_name",
-        "schedule": 10.0,  # Run the task every 10 seconds
+        "schedule": 30.0,  # Run the task every 10 seconds
     },
 }
 

@@ -70,7 +70,7 @@ class Relay(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Relay {self.relay_name}"
+        return f"Device `{self.device.device_name}` : Relay `{self.relay_name}`"
 
 
 class RelayGroup(models.Model):
