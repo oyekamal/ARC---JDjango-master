@@ -44,6 +44,25 @@ def get_mac_address(ifname):
     return "".join("%02x" % b for b in info[18:24])
 
 
+def find_available_port(start=5000, end=5100):
+    """
+    Find an available port within the given range.
+
+    :param start: Start of port range
+    :param end: End of port range
+    :return: Available port
+    """
+    for port in range(start, end):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                # Attempt to bind to the port
+                s.bind(("localhost", port))
+                return port
+            except OSError:
+                pass  # Port is in use, continue to next port
+    return None  # No available ports found
+
+
 # Flask and MQTT setup
 app = Flask(_name_)
 app.config["SECRET"] = "my secret key"
@@ -57,11 +76,16 @@ app.config["MQTT_TLS_ENABLED"] = False
 mqtt = Mqtt(app)
 
 # Relay configuration
+# you can change the relays here
 relay_pins = {
     1: {"on": 21, "off": 20, "color": "red"},  # Relay 1
     2: {"on": 16, "off": 12, "color": "blue"},  # Relay 2
     3: {"on": 7, "off": 15, "color": "green"},  # Relay 3
     4: {"on": 25, "off": 24, "color": "purple"},  # Relay 4
+    5: {"on": 21, "off": 20, "color": "red"},  # Relay 5
+    6: {"on": 16, "off": 12, "color": "blue"},  # Relay 6
+    7: {"on": 7, "off": 15, "color": "green"},  # Relay 7
+    8: {"on": 25, "off": 24, "color": "purple"},  # Relay 8
 }
 
 # Setup relay pins as outputs
@@ -76,16 +100,19 @@ mac_address = get_mac_address(interface_name)
 last_4_mac = mac_address.replace(":", "")[-4:]
 
 custom_ip = ip_address
-custom_port = 8080
+# custom_port = 8080
+custom_port = find_available_port()
 
 # Device information
 device_info = {
     "device_type": "slave",
-    "device_name": f"URC-firmware-{last_4_mac}",
+    "device_name": f"Dim-R-{last_4_mac}",
     "extra_info": str(relay_pins),
     "ip": custom_ip,
     "port": custom_port,
-    "RELAY_PINS": {1: 1, 2: 2, 3: 3, 4: 4},
+    "RELAY_PINS": {
+        i: i for i in relay_pins
+    },  # add pin automatically for master to send request back
     "relay_on_off": [],
     "message": "hello Master",
     "device_update": False,
@@ -195,7 +222,7 @@ def handle_message(client, userdata, message):
 
 @app.route("/")
 def index():
-    return "Slave Flask Application"
+    return "URC Slave Flask Application"
 
 
 def button_handler():
