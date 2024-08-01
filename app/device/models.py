@@ -69,6 +69,9 @@ class Relay(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["relay_pin", "device"]
+
     def __str__(self):
         return f"Device `{self.device.device_name}` : Relay `{self.relay_name}`"
 

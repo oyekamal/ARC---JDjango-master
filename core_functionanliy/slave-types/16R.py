@@ -257,7 +257,7 @@ def button_handler():
 
 
 if __name__ == "__main__":
-    
+
     # Start button handler in a separate thread
     button_thread = threading.Thread(target=button_handler)
     button_thread.daemon = True
