@@ -64,7 +64,7 @@ def find_available_port(start=5000, end=5100):
 
 
 # Flask and MQTT setup
-app = Flask(_name_)
+app = Flask(__name__)
 app.config["SECRET"] = "my secret key"
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["MQTT_BROKER_URL"] = "mqtt.eclipseprojects.io"
